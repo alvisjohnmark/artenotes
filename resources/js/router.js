@@ -1,5 +1,9 @@
 import LandingPage from "./Pages/LandingPage.vue";
-import test from "./Pages/test.vue";
+import About from "./Pages/About.vue";
+import Products from "./Pages/Products.vue";
+import Services from "./Pages/Services.vue";
+import Register from "./Pages/Auth/Register.vue";
+import Login from "./Pages/Auth/Login.vue";
 export const routes = [
     {
         path: "/",
@@ -7,8 +11,28 @@ export const routes = [
         name: "Landing Page",
     },
     {
-        path: "/test",
-        component: test,
-        name: "test",
+        path: "/about",
+        component: About,
+        name: "About",
+    },
+    {
+        path: "/products",
+        component: Products,
+        name: "Products",
+    },
+    {
+        path: "/services",
+        component: Services,
+        name: "Services",
+    },
+    {
+        path: "/register",
+        component: Register,
+        name: "Register",
+    },
+    {
+        path: "/login",
+        component: Login,
+        name: "Login",
     }
 ];

@@ -1,5 +1,7 @@
 import "./bootstrap";
 import "../css/app.css";
+import 'vue3-toastify/dist/index.css';
+import Vue3Toastify, { toast } from 'vue3-toastify';
 import { createApp, markRaw } from "vue/dist/vue.esm-bundler.js";
 import { createRouter, createWebHistory, useRoute } from "vue-router";
 import { createPinia } from "pinia";
@@ -17,6 +19,7 @@ pinia.use(({ store }) => {
     store.route = markRaw(useRoute());
 });
 
+app.use(Vue3Toastify);
 app.use(pinia);
 app.use(router);
 app.mount("#app");

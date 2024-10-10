@@ -1,15 +1,5 @@
 <script setup>
-import {
-    House,
-    Users,
-    ShoppingBag,
-    MailCheck,
-    LogIn,
-    User,
-    LogOut,
-} from "lucide-vue-next";
-import { authStore } from "./Auth/AuthStore/authClient";
-const user = authStore();
+import { House, Users, ShoppingBag, MailCheck, LogIn } from "lucide-vue-next";
 </script>
 
 <template>
@@ -21,46 +11,26 @@ const user = authStore();
                 <div class="flex items-center">
                     <img src="/public/img/logo.png" class="h-20 w-auto" />
                 </div>
-                <h1 class="text-lptxcolor text-5xl font-playfair pl-10">artenotes</h1>
+                <h1 class="text-lptxcolor text-5xl font-playfair">artenotes</h1>
 
-                <div class="flex items-center space-x-4">
-                    <router-link
-                        v-if="!user.token"
-                        to="/login"
-                        class="text-lptxcolor flex items-center space-x-1"
+                <router-link
+                    to="/register"
+                    class="text-lptxcolor flex items-center space-x-1"
+                >
+                    <span>
+                        <LogIn :stroke-width="1" />
+                    </span>
+                    <span class="hover:text-[#5a5a3a] font-bebasneue"
+                        >Sign In</span
                     >
-                        <span>
-                            <LogIn :stroke-width="1" />
-                        </span>
-                        <span class="hover:text-[#5a5a3a] font-bebasneue"
-                            >Sign In</span
-                        >
-                    </router-link>
-                    <div v-else class="flex gap-6">
-                        <span
-                            class="text-lptxcolor flex items-center space-x-1 cursor-pointer"
-                            @click="user.logoutUser()"
-                        >
-                            <LogOut :stroke-width="1" />
-                            <span class="hover:text-[#5a5a3a] font-bebasneue"
-                                >Logout</span
-                            >
-                        </span>
-                        <router-link
-                            to="profile"
-                            class="text-lptxcolor flex items-center space-x-1 cursor-pointer"
-                        >
-                            <User :size="32" :stroke-width="1" />
-                        </router-link>
-                    </div>
-                </div>
+                </router-link>
             </div>
             <hr class="border-lptxcolor" />
 
             <div class="container mx-auto flex justify-center gap-8 py-2">
                 <router-link
                     to="/"
-                    class="text-lptxcolor flex items-center space-x-1 p-1 border-b-2 border-lptxcolor"
+                    class="text-lptxcolor flex items-center space-x-1 p-1"
                 >
                     <span>
                         <House :stroke-width="1" />
@@ -72,7 +42,7 @@ const user = authStore();
 
                 <router-link
                     to="/about"
-                    class="text-lptxcolor flex items-center space-x-1 p-1"
+                    class="text-lptxcolor flex items-center space-x-1 p-1 border-b-2 border-lptxcolor"
                 >
                     <span>
                         <Users :stroke-width="1" />
