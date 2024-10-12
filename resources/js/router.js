@@ -1,3 +1,5 @@
+import { clientRouteGuard } from "./routeguard";
+
 import LandingPage from "./Pages/LandingPage.vue";
 import About from "./Pages/About.vue";
 import Products from "./Pages/Products.vue";
@@ -39,6 +41,6 @@ export const routes = [
     {
         path: "/cart",
         component: Cart,
-        name: "Cart",
+        beforeEnter: clientRouteGuard,
     }
 ];
