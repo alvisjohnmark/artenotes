@@ -4,6 +4,7 @@ import Products from "./Pages/Products.vue";
 import Services from "./Pages/Services.vue";
 import Register from "./Pages/Auth/Register.vue";
 import Login from "./Pages/Auth/Login.vue";
+import Cart from "./Pages/Cart.vue";
 export const routes = [
     {
         path: "/",
@@ -34,5 +35,10 @@ export const routes = [
         path: "/login",
         component: Login,
         name: "Login",
+    },
+    {
+        path: "/cart",
+        component: Cart,
+        name: "Cart",
     }
 ];

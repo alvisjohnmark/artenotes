@@ -7,9 +7,13 @@ export const authStore = defineStore("auth", {
         email: "",
         password: "",
         confirmPassword: "",
+        showDropdown: false,
         token: localStorage.getItem("token") || null,
     }),
     actions: {
+        toggleDropDown(){
+            this.showDropdown = !this.showDropdown;
+        },
         async registerUser() {
             try {
                 if (this.password !== this.confirmPassword) {
