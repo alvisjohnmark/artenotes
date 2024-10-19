@@ -1,5 +1,6 @@
 import { clientRouteGuard } from "./routeguard";
 
+//client
 import LandingPage from "./Pages/LandingPage.vue";
 import About from "./Pages/About.vue";
 import Products from "./Pages/Products.vue";
@@ -7,6 +8,10 @@ import Services from "./Pages/Services.vue";
 import Register from "./Pages/Auth/Register.vue";
 import Login from "./Pages/Auth/Login.vue";
 import Cart from "./Pages/Cart.vue";
+
+//admin
+import LoginAdmin from "./Pages/Auth/LoginAdmin.vue";
+
 export const routes = [
     {
         path: "/",
@@ -42,5 +47,10 @@ export const routes = [
         path: "/cart",
         component: Cart,
         beforeEnter: clientRouteGuard,
-    }
+    },
+    {
+        path: "/supersecretloginpagehehe",
+        component: LoginAdmin,
+        name: "Login Admin",
+    },
 ];

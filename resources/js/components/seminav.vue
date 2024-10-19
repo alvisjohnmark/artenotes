@@ -24,9 +24,11 @@ const route = useRoute();
             <div class="flex items-center">
                 <img src="/public/img/logo.png" class="h-20 w-auto" />
             </div>
-            <h1 class="text-lptxcolor text-5xl font-playfair pl-10">
-                artenotes
-            </h1>
+            <router-link
+                to="/"
+                class="text-lptxcolor text-5xl font-playfair pl-10"
+                >artenotes</router-link
+            >
 
             <div class="flex items-center space-x-4">
                 <router-link

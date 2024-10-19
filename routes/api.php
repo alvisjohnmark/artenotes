@@ -18,9 +18,7 @@ Route::prefix('admin')->group(function () {
 Route::prefix('client')->group(function () {
     Route::post('register', [ClientController::class, 'register']);
     Route::post('login', [ClientController::class, 'login']);
-
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('dashboard', [ClientController::class, 'dashboard']);
         Route::get('name', [ClientController::class, 'getClientName']);
     });
 });
