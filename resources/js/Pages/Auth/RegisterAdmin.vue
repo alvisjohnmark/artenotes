@@ -29,7 +29,6 @@ const admin = adminStore();
                         />
                     </div>
 
-                    <!-- Email input -->
                     <div
                         class="relative flex items-center border-b border-gray-300 focus-within:border-lptxcolor transition duration-300"
                     >
@@ -41,8 +40,6 @@ const admin = adminStore();
                             class="ml-3 flex-1 bg-transparent border-none focus:outline-none py-2 text-gray-700 placeholder-gray-400"
                         />
                     </div>
-
-                    <!-- Password input -->
                     <div
                         class="relative flex items-center border-b border-gray-300 focus-within:border-lptxcolor transition duration-300"
                     >
@@ -54,7 +51,6 @@ const admin = adminStore();
                             placeholder="Password"
                             class="ml-3 flex-1 bg-transparent border-none focus:outline-none py-2 text-gray-700 placeholder-gray-400"
                         />
-                        <!-- Toggle password visibility only if there's input -->
                         <button
                             v-if="admin.showPasswordIcon"
                             type="button"
@@ -80,7 +76,6 @@ const admin = adminStore();
                             placeholder="Confirm Password"
                             class="ml-3 flex-1 bg-transparent border-none focus:outline-none py-2 text-gray-700 placeholder-gray-400"
                         />
-                        <!-- Toggle confirm password visibility only if there's input -->
                         <button
                             v-if="admin.showConfirmPasswordIcon"
                             type="button"
@@ -91,8 +86,6 @@ const admin = adminStore();
                             <EyeOff v-else />
                         </button>
                     </div>
-
-                    <!-- Submit button -->
                     <div class="mt-8">
                         <button
                             type="submit"
@@ -103,7 +96,6 @@ const admin = adminStore();
                     </div>
                 </form>
 
-                <!-- Login link -->
                 <p class="text-sm text-gray-500 mt-4">
                     Already have an account?
                     <router-link

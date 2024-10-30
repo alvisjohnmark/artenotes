@@ -1,4 +1,3 @@
-<!-- App.vue -->
 <script setup>
 import {
     Home,
@@ -11,6 +10,13 @@ import {
     UserRoundPlus,
     BadgeDollarSign,
 } from "lucide-vue-next";
+import { adminFunctions } from "./AdminStore/adminStore";
+import { onMounted } from "vue";
+const admin = adminFunctions();
+onMounted(() => {
+    admin.getAdminName();
+});
+
 </script>
 
 <template>
@@ -66,7 +72,7 @@ import {
         <main class="flex-1 p-6 bg-bglightcolor">
             <div class="mb-4 flex justify-between items-center">
                 <h1 class="text-2xl font-semibold text-lptxcolor">Dashboard</h1>
-                <p class="text-lg text-lptxcolor">Welcome, [Name]</p>
+                <p class="text-lg text-lptxcolor">Welcome, {{ admin.adminName }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
