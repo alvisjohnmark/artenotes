@@ -1,5 +1,5 @@
 <script setup>
-import { Mail, Lock, Eye, EyeOff } from "lucide-vue-next";
+import { Mail, Lock, User, Eye, EyeOff } from "lucide-vue-next";
 import { adminStore } from "./AuthStore/authAdmin";
 const admin = adminStore();
 </script>
@@ -15,7 +15,20 @@ const admin = adminStore();
                 >
                     Admin
                 </h2>
-                <form @submit.prevent="admin.loginAdmin()" class="space-y-6">
+                <form @submit.prevent="admin.registerAdmin()" class="space-y-6">
+                    <!-- Name input -->
+                    <div
+                        class="relative flex items-center border-b border-gray-300 focus-within:border-lptxcolor transition duration-300"
+                    >
+                        <User class="text-gray-400" />
+                        <input
+                            v-model="admin.name"
+                            type="text"
+                            placeholder="Name"
+                            class="ml-3 flex-1 bg-transparent border-none focus:outline-none py-2 text-gray-700 placeholder-gray-400"
+                        />
+                    </div>
+
                     <!-- Email input -->
                     <div
                         class="relative flex items-center border-b border-gray-300 focus-within:border-lptxcolor transition duration-300"
@@ -28,6 +41,7 @@ const admin = adminStore();
                             class="ml-3 flex-1 bg-transparent border-none focus:outline-none py-2 text-gray-700 placeholder-gray-400"
                         />
                     </div>
+
                     <!-- Password input -->
                     <div
                         class="relative flex items-center border-b border-gray-300 focus-within:border-lptxcolor transition duration-300"
@@ -52,24 +66,52 @@ const admin = adminStore();
                         </button>
                     </div>
 
+                    <!-- Confirm Password input -->
+                    <div
+                        class="relative flex items-center border-b border-gray-300 focus-within:border-lptxcolor transition duration-300"
+                    >
+                        <Lock class="text-gray-400" />
+                        <input
+                            v-model="admin.confirmPassword"
+                            @input="admin.onConfirmPasswordInput"
+                            :type="
+                                admin.showConfirmPassword ? 'text' : 'password'
+                            "
+                            placeholder="Confirm Password"
+                            class="ml-3 flex-1 bg-transparent border-none focus:outline-none py-2 text-gray-700 placeholder-gray-400"
+                        />
+                        <!-- Toggle confirm password visibility only if there's input -->
+                        <button
+                            v-if="admin.showConfirmPasswordIcon"
+                            type="button"
+                            @click="admin.toggleConfirmPasswordVisibility()"
+                            class="absolute right-0 mr-3 text-gray-400"
+                        >
+                            <Eye v-if="!admin.showConfirmPassword" />
+                            <EyeOff v-else />
+                        </button>
+                    </div>
+
                     <!-- Submit button -->
                     <div class="mt-8">
                         <button
                             type="submit"
-                            class="w-full bg-lptxcolor text-white py-3 rounded-sm font-semibold text-lg"
+                            class="w-full bg-lptxcolor text-white py-3 rounded-full font-semibold text-lg"
                         >
-                            Login
+                            Register
                         </button>
                     </div>
                 </form>
-                <!-- Register link -->
+
+                <!-- Login link -->
                 <p class="text-sm text-gray-500 mt-4">
-                    New admin?
+                    Already have an account?
                     <router-link
-                        to="/supersecretregisterpagehehe"
+                        to="/supersecretloginpagehehe"
                         class="text-lptxcolor hover:underline"
-                        >Register now</router-link
                     >
+                        Login now
+                    </router-link>
                 </p>
             </div>
         </main>

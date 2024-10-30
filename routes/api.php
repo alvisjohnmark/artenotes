@@ -7,7 +7,8 @@ use App\Http\Controllers\Auth\ClientController;
 
 // Admin routes
 Route::prefix('admin')->group(function () {
-    Route::post('login', [AdminController::class, 'login']);
+    Route::post('register', [ClientController::class, 'register']);
+    Route::post('login', [ClientController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('dashboard', [AdminController::class, 'dashboard']);
         Route::get('name', [AdminController::class, 'getAdminName']);

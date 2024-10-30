@@ -8,11 +8,27 @@ export const authStore = defineStore("auth", {
         password: "",
         confirmPassword: "",
         showDropdown: false,
+        showPassword: false,
+        showConfirmPassword: false, 
+        showPasswordIcon: false, 
+        showConfirmPasswordIcon: false, 
         token: localStorage.getItem("token") || null,
     }),
     actions: {
         toggleDropDown(){
             this.showDropdown = !this.showDropdown;
+        },
+        togglePasswordVisibility() {
+            this.showPassword = !this.showPassword;
+        },
+        toggleConfirmPasswordVisibility() {
+            this.showConfirmPassword = !this.showConfirmPassword;
+        },
+        onPasswordInput() {
+            this.showPasswordIcon = !!this.password;
+        },
+        onConfirmPasswordInput() {
+            this.showConfirmPasswordIcon = !!this.confirmPassword; 
         },
         async registerUser() {
             try {
