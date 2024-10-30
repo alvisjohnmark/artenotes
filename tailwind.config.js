@@ -14,6 +14,7 @@ export default {
                 lptxcolorlight: "#a2b380",
                 fmbtcolor: "#283618",
                 bglightcolor: "#fefef0",
+                lpbgcolordark: '#3c3c3c',
             },
             fontFamily: {
                 playfair: ['Playfair Display', 'serif'],
