@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Admin;
 use App\Models\Product;
+use App\Models\Service;
 use App\Models\ProductPictures;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -91,7 +92,6 @@ class adminController extends Controller
 
         return $products;
     }
-
     public function updateProduct(Request $request, $id)
     {
         $product = Product::find($id);
@@ -108,8 +108,25 @@ class adminController extends Controller
             'sheets_per_set' => $request->sheets_per_set,
         ]);
     
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('img', 'public');
+            $productPicture = ProductPictures::where('product_id', $id)->first();
+    
+            if ($productPicture) {
+                Storage::disk('public')->delete($productPicture->file_path);
+                $productPicture->update(['file_path' => $path]);
+            } else {
+                ProductPictures::create([
+                    'product_id' => $id,
+                    'file_path' => $path,
+                ]);
+            }
+        }
+    
         return response()->json(['message' => 'Product updated successfully']);
     }
+    
+
 
     public function deleteProduct($id)
     {
@@ -134,19 +151,68 @@ class adminController extends Controller
         ]);
     
         $path = $request->file('image')->store('img', 'public');
-    
-        $productPicture = ProductPictures::create([
-            'product_id' => $productId,
-            'file_path' => $path,
-        ]);
+
+        $productPicture = ProductPictures::where('product_id', $productId)->first();
+        if ($productPicture) {
+            Storage::disk('public')->delete($productPicture->file_path);  // Delete existing file
+            $productPicture->update(['file_path' => $path]);         
+        } else {
+            ProductPictures::create([
+                'product_id' => $productId,
+                'file_path' => $path,
+            ]);
+        }
     
         return response()->json([
             'message' => 'Image uploaded successfully',
-            'path' => Storage::url($path) // Use Storage::url for full URL
+            'path' => Storage::url($path)
         ]);
     }
     
+    public function addService(Request $request)
+    {
 
+        $service = Service::create([
+            'service_name' => $request->service_name,
+            'service_description' => $request->service_description,
+            'service_price' => $request->service_price,
+        ]);
     
+        return response()->json($service, 201);
+    }
+    
+    public function getServices()
+    {
+        $services = Service::all();
+        return $services;
+    }
 
+        
+    public function deleteService($id)
+    {
+        $service = Service::find($id);
+        if ($service) {
+            $service->delete();
+            return response()->json(['message' => 'service deleted successfully.']);
+        } else {
+            return response()->json(['message' => 'service not found.'], 404);
+        }
+    }
+
+    public function updateService(Request $request, $id)
+    {
+        $service = Service::find($id);
+        if (!$service) {
+            return response()->json(['message' => 'service not found'], 404);
+        }
+    
+        $service->update([
+            'service_name' => $request->service_name,
+            'service_description' => $request->service_description,
+            'service_price' => $request->service_price,
+        ]);
+    
+        return response()->json(['message' => 'Product updated successfully']);
+    }
+    
 }

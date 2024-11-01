@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;  // Use the Client model
+use App\Models\Client;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -17,20 +18,28 @@ class clientController extends Controller
             'email' => 'required|string|email|max:255|unique:clients', 
             'password' => 'required|string|min:8',
         ]);
-
+    
         // Create client
         $client = Client::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+    
+        // Automatically create a cart for the newly registered client
+        Cart::create([
+            'client_id' => $client->id,
+        ]);
+    
+        // Generate token for the client
         $token = $client->createToken('client-token')->plainTextToken;
-
+    
         return response()->json([
             'client' => $client,
             'token' => $token
         ], 201);
     }
+    
     public function login(Request $request)
     {
         $request->validate([

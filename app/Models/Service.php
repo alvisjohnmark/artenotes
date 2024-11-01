@@ -10,7 +10,9 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'service_name',
+        'service_description',
+        'service_price',
     ];
 
     // Relationship with OrderItem
