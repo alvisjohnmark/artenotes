@@ -2,6 +2,7 @@
 import { Facebook, Instagram, Youtube } from "lucide-vue-next";
 import { authStore } from "./Auth/AuthStore/authClient";
 import Nav from "../components/nav.vue";
+import Footer from "../components/footer.vue";
 const user = authStore();
 </script>
 
@@ -195,7 +196,6 @@ const user = authStore();
             class="py-16 bg-cover bg-center relative"
             style="background-image: url('/img/lpbg1.jpg')"
         >
-
             <div
                 class="relative flex flex-col md:flex-row justify-center items-center md:space-x-8 px-6"
             >
@@ -212,7 +212,9 @@ const user = authStore();
                     <h2 class="text-4xl font-playfair text-lptxcolor mb-4">
                         Our Mission & Vision
                     </h2>
-                    <p class="text-lg text-lptxcolor leading-relaxed text-justify">
+                    <p
+                        class="text-lg text-lptxcolor leading-relaxed text-justify"
+                    >
                         Our mission is to promote sustainability and creativity
                         by offering eco-friendly stationery and personalized
                         services that inspire deeper, more meaningful
@@ -223,42 +225,6 @@ const user = authStore();
                 </div>
             </div>
         </div>
-
-        <!-- Footer -->
-        <footer class="py-16 bg-cover bg-center relative"
-        style="background-image: url('/img/lpbg3.jpg')">
-            <div class="container mx-auto text-center text-white space-y-4">
-                <p class="text-2xl font-semibold tracking-wider">Follow Us</p>
-                <div class="flex justify-center gap-6 py-4">
-                    <!-- Facebook -->
-                    <a
-                        href="https://www.facebook.com"
-                        target="_blank"
-                        class="hover:text-[#f0ece4] transition duration-300 ease-in-out transform hover:scale-110"
-                    >
-                        <Facebook :size="28" :stroke-width="1" />
-                    </a>
-                    <!-- Instagram -->
-                    <a
-                        href="https://www.instagram.com"
-                        target="_blank"
-                        class="hover:text-[#f0ece4] transition duration-300 ease-in-out transform hover:scale-110"
-                    >
-                        <Instagram :size="28" :stroke-width="1" />
-                    </a>
-                    <!-- YouTube -->
-                    <a
-                        href="https://www.youtube.com"
-                        target="_blank"
-                        class="hover:text-[#f0ece4] transition duration-300 ease-in-out transform hover:scale-110"
-                    >
-                        <Youtube :size="28" :stroke-width="1" />
-                    </a>
-                </div>
-                <div class="text-sm text-gray-300">
-                    <p>&copy; 2024 artenotes. All Rights Reserved.</p>
-                </div>
-            </div>
-        </footer>
+        <Footer />
     </section>
 </template>

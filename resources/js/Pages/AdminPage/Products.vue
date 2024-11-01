@@ -125,7 +125,7 @@ onMounted(() => {
                                 v-if="product.pictures.length"
                                 :src="`/storage/${product.pictures[0].file_path}`"
                                 alt="Product Image"
-                                class="w-20 h-20 object-cover"
+                                class="w-20 h-20 object-cover m-2"
                             />
                         </td>
 
@@ -169,10 +169,10 @@ onMounted(() => {
                 v-if="admin.showAddModal"
                 class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
             >
-                <div class="bg-white w-full max-w-lg p-8 rounded-lg shadow-lg">
-                    <h2 class="text-xl font-semibold mb-4">Add Product</h2>
+                <div class="bg-white w-full max-w-xl p-8 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-semibold mb-2">Add Product</h2>
                     <form @submit.prevent="admin.addProduct()">
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Name</label
@@ -183,7 +183,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Stock</label
@@ -194,7 +194,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Price</label
@@ -205,7 +205,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Color</label
@@ -216,7 +216,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Size</label
@@ -227,7 +227,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Sheets per set</label
@@ -245,6 +245,7 @@ onMounted(() => {
                                 id="image"
                                 @change="admin.handleFileUpload"
                                 accept="image/*"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
                         <div class="flex justify-end space-x-4 mt-6">
@@ -270,9 +271,9 @@ onMounted(() => {
                 class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
             >
                 <div class="bg-white w-full max-w-lg p-8 rounded-lg shadow-lg">
-                    <h2 class="text-xl font-semibold mb-4">Edit Product</h2>
+                    <h2 class="text-xl font-semibold mb-2">Edit Product</h2>
                     <form @submit.prevent="admin.updateProduct()">
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Name</label
@@ -283,7 +284,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Stock</label
@@ -294,7 +295,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Price</label
@@ -305,7 +306,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Color</label
@@ -316,7 +317,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Size</label
@@ -327,7 +328,7 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label
                                 class="block text-sm font-medium text-gray-700"
                                 >Sheets per set</label
@@ -338,10 +339,21 @@ onMounted(() => {
                                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
+                        <div class="mb-2">
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Product Image</label
+                            >
+                            <input
+                                type="file"
+                                @change="admin.handleFileUpload"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            />
+                        </div>
                         <div class="flex justify-end space-x-4 mt-6">
                             <button
                                 type="button"
-                                @click="admin.toggleAddModal"
+                                @click="admin.toggleEditModal"
                                 class="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600"
                             >
                                 Cancel
