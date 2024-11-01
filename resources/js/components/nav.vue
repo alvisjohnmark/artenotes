@@ -16,7 +16,7 @@ import { authStore } from "../Pages/Auth/AuthStore/authClient";
 
 const user = authStore();
 const route = useRoute();
-const isMenuOpen = ref(false); // State to manage mobile menu visibility
+const isMenuOpen = ref(false); 
 
 function toggleMenu() {
     isMenuOpen.value = !isMenuOpen.value;
@@ -31,7 +31,6 @@ function toggleMenu() {
             </div>
             <router-link to="/" class="text-lptxcolor text-5xl font-playfair pl-10">artenotes</router-link>
 
-            <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-4">
                 <router-link
                     v-if="!user.token"
@@ -51,7 +50,7 @@ function toggleMenu() {
 
                     <div
                         v-if="user.showDropdown"
-                        class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg"
+                        class="absolute right-0 mt-12 py-2 w-48 bg-white rounded-md shadow-lg"
                     >
                         <router-link to="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                             <User :size="24" :stroke-width="1" class="inline-block mr-2" />Profile
