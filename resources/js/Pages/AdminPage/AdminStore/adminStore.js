@@ -11,8 +11,18 @@ export const adminFunctions = defineStore("adminFunctions", {
         size: "",
         sheets_per_set: "",
         editingProduct: null,
+        editingService: null,
         selectedImage: null,
         product_list: [],
+
+        service_name: "",
+        service_description: "",
+        service_price: 0,
+        service_list: [],
+
+        showAddServiceModal: false,
+        showEditServiceModal: false,
+
         showAddModal: false,
         showEditModal: false,
         token: localStorage.getItem("admin_token") || null,
@@ -40,6 +50,23 @@ export const adminFunctions = defineStore("adminFunctions", {
             if (!this.showEditModal) {
                 this.resetForm();
             }
+        },
+        toggleAddServiceModal() {
+            this.showAddServiceModal = !this.showAddServiceModal;
+            if (!this.showAddServiceModal) {
+                this.resetForm();
+            }
+        },
+        toggleEditServiceModal() {
+            this.showEditServiceModal = !this.showEditServiceModal;
+            if (!this.showEditServiceModal) {
+                this.resetServiceForm();
+            }
+        },
+        resetServiceForm() {
+            this.service_name = "";
+            this.service_description = "0";
+            this.serice_price = 0;
         },
         resetForm() {
             this.name = "";
@@ -124,7 +151,7 @@ export const adminFunctions = defineStore("adminFunctions", {
                     },
                 });
                 this.product_list = response.data;
-                console.log(this.product_list)
+                console.log(this.product_list);
             } catch (error) {
                 console.error("Error fetching products:", error);
             }
@@ -142,7 +169,7 @@ export const adminFunctions = defineStore("adminFunctions", {
 
         async updateProduct() {
             try {
-                const response = await axios.put(
+                await axios.put(
                     `/api/admin/updateProduct/${this.editingProduct.id}`,
                     {
                         name: this.name,
@@ -159,20 +186,34 @@ export const adminFunctions = defineStore("adminFunctions", {
                     }
                 );
 
+                if (this.selectedImage) {
+                    const formData = new FormData();
+                    formData.append("image", this.selectedImage);
+
+                    await axios.post(
+                        `/api/admin/addPicture/${this.editingProduct.id}/image`,
+                        formData,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${this.token}`,
+                                "Content-Type": "multipart/form-data",
+                            },
+                        }
+                    );
+                }
+
                 Swal.fire({
                     icon: "success",
                     title: "Product Updated",
-                    text: "Product has been successfully updated!",
+                    text: "Product and image updated successfully!",
                 });
+
                 this.fetchProducts();
                 this.toggleEditModal();
                 this.resetForm();
             } catch (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Update Failed",
-                    text: "An error occurred while updating the product.",
-                });
+                console.error(error);
+                Swal.fire("Error", "Failed to update product", "error");
             }
         },
 
@@ -210,6 +251,118 @@ export const adminFunctions = defineStore("adminFunctions", {
                     title: "Delete Failed",
                     text: "An error occurred while deleting the product.",
                 });
+            }
+        },
+
+        async addService() {
+            try {
+                const response = await axios.post(
+                    "/api/admin/addService",
+                    {
+                        service_name: this.service_name,
+                        service_description: this.service_description,
+                        service_price: this.service_price,
+                    },
+                    { headers: { Authorization: `Bearer ${this.token}` } }
+                );
+
+                Swal.fire("Success", "Service added successfully!", "success");
+                this.fetchServices();
+                this.toggleAddServiceModal();
+                this.resetServiceForm();
+            } catch (error) {
+                console.log(error.response.data);
+                Swal.fire(
+                    "Error",
+                    "An error occurred while adding the service.",
+                    "error"
+                );
+            }
+        },
+        async fetchServices() {
+            try {
+                const response = await axios.get(`/api/admin/getServices`, {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                });
+                this.service_list = response.data;
+                console.log(this.service_list);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        },
+        async deleteService(serviceId) {
+            try {
+                await Swal.fire({
+                    title: "Are you sure?",
+                    text: "This will permanently delete the product!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!",
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        await axios.delete(
+                            `/api/admin/deleteService/${serviceId}`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${this.token}`,
+                                },
+                            }
+                        );
+                        Swal.fire(
+                            "Deleted!",
+                            "Product has been deleted.",
+                            "success"
+                        );
+                        this.fetchProducts();
+                    }
+                });
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Delete Failed",
+                    text: "An error occurred while deleting the product.",
+                });
+            }
+        },
+        editService(service) {
+            this.showEditServiceModal = !this.showEditServiceModal;
+            this.editingService = service;
+            this.service_name = service.service_name;
+            this.service_description = service.service_description;
+            this.service_price = service.service_price;
+        },
+
+        async updateService() {
+            try {
+                await axios.put(
+                    `/api/admin/updateService/${this.editingService.id}`,
+                    {
+                        service_name: this.service_name,
+                        service_description: this.service_description,
+                        service_price: this.service_price,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.token}`,
+                        },
+                    }
+                );
+                Swal.fire({
+                    icon: "success",
+                    title: "Service Updated",
+                    text: "Service updated successfully!",
+                });
+
+                this.fetchServices();
+                this.toggleEditServiceModal();
+                this.resetServiceForm();
+            } catch (error) {
+                console.error(error);
+                Swal.fire("Error", "Failed to update service", "error");
             }
         },
     },

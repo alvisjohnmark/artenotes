@@ -16,15 +16,12 @@ const user = authStore();
         <Nav />
         <main class="flex justify-center items-center min-h-full py-10">
             <div class="bg-white shadow-lg rounded-lg overflow-hidden flex w-[600px]">
-                <!-- Left side (solid color with logo and subtle elements) -->
                 <div class="w-1/3 flex flex-col justify-center items-center bg-lptxcolorlight p-8 relative">
                     <img src="/public/img/logo.png" class="h-28 w-auto mb-6" alt="Logo" />
                     <p class="text-center text-white text-sm italic">Your journey starts here</p>
-                    <!-- Decorative divider -->
                     <div class="absolute bottom-0 left-0 w-full h-1 bg-white opacity-30"></div>
                 </div>
                 
-                <!-- Right side (form section) -->
                 <div class="w-2/3 p-10">
                     <h2 class="text-3xl font-bold text-lptxcolor mb-6">Register Account</h2>
                     <form @submit.prevent="user.registerUser()" class="space-y-4">
@@ -87,7 +84,7 @@ const user = authStore();
                         <div class="mt-6">
                             <button
                                 type="submit"
-                                class="w-full bg-lptxcolor text-white py-2 rounded-sm hover:bg-green-600 transition duration-300"
+                                class="w-full bg-lptxcolor text-white py-2 rounded-sm transition duration-300"
                             >
                                 Register
                             </button>
