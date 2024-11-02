@@ -9,14 +9,6 @@ export const clientStore = defineStore("clientStore", {
         token: localStorage.getItem("token") || null,
     }),
     actions: {
-        increaseQuantity() {
-            this.quantity++;
-        },
-        decreaseQuantity() {
-            if (this.quantity > 1) {
-                this.quantity--;
-            }
-        },
         async fetchProducts() {
             try {
                 const response = await axios.get(`/api/getProducts`, {
@@ -44,31 +36,43 @@ export const clientStore = defineStore("clientStore", {
             }
         },
         async addToCart(item_id, item_type, price) {
-            try {
-                await axios.post(
-                    "/api/client/addToCart",
-                    { item_id, item_type, quantity: this.quantity, price },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${this.token}`,
-                        },
-                    }
-                );
-                Swal.fire(
-                    "Added to cart!",
-                    `${
-                        item_type.charAt(0).toUpperCase() + item_type.slice(1)
-                    } added successfully.`,
-                    "success"
-                );
-            } catch (error) {
-                console.error(error.response);
-                console.log(item_id)
-                Swal.fire(
-                    "Error",
-                    "Could not add item to cart. Please try again.",
-                    "error"
-                );
+            if (!this.token) {
+                Swal.fire({
+                    title: "Login Required",
+                    text: "Please log in to proceed with checkout.",
+                    icon: "warning",
+                    confirmButtonText: "Login",
+                }).then(() => {
+                    this.router.push("/login");
+                });
+            } else {
+                try {
+                    await axios.post(
+                        "/api/client/addToCart",
+                        { item_id, item_type, quantity: this.quantity, price },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${this.token}`,
+                            },
+                        }
+                    );
+                    Swal.fire(
+                        "Added to cart!",
+                        `${
+                            item_type.charAt(0).toUpperCase() +
+                            item_type.slice(1)
+                        } added successfully.`,
+                        "success"
+                    );
+                } catch (error) {
+                    console.error(error.response);
+                    console.log(item_id);
+                    Swal.fire(
+                        "Error",
+                        "Could not add item to cart. Please try again.",
+                        "error"
+                    );
+                }
             }
         },
         checkout() {

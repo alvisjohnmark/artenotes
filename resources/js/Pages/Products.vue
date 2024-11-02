@@ -66,28 +66,13 @@ onMounted(() => {
                             }}
                         </p>
                         <div class="flex items-center">
-                            <button
-                                @click="render.decreaseQuantity"
-                                class="bg-fmbtcolor text-white px-4 py-2 rounded hover:bg-opacity-80 transition duration-200"
-                                :disabled="render.quantity <= 1"
-                            >
-                                -
-                            </button>
                             <input
                                 type="number"
                                 v-model="render.quantity"
                                 class="w-16 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fmbtcolor"
                                 min="1"
                                 :max="product.stock"
-                                readonly
                             />
-                            <button
-                                @click="render.increaseQuantity"
-                                class="bg-fmbtcolor text-white px-4 py-2 rounded hover:bg-opacity-80 transition duration-200"
-                                :disabled="render.quantity >= product.stock"
-                            >
-                                +
-                            </button>
                         </div>
                     </div>
                     <div
