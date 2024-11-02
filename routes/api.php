@@ -36,6 +36,9 @@ Route::prefix('client')->group(function () {
     Route::post('login', [clientController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('addToCart', [cartController::class, 'addToCart']);
+        Route::get('getCartItems', [cartController::class, 'getCartItems']);
+        Route::put('updateQuantity/{id}', [cartController::class, 'updateQuantity']);
+        Route::delete('removeFromCart/{id}', [cartController::class, 'removeFromCart']);
     });
 });
 
