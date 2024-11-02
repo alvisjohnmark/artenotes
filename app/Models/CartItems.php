@@ -10,27 +10,20 @@ class CartItems extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'cart_id',
-        'item_id',       
-        'item_type',   
-        'quantity',
-        'price',
-        'total_price'
-    ];
-    
+    protected $fillable = ['cart_id', 'item_id', 'item_type', 'quantity', 'price', 'total_price'];
 
     public function cart()
     {
         return $this->belongsTo(Cart::class);
     }
+
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'item_id');
     }
 
-    public function service()
+    public function pictures()
     {
-        return $this->belongsTo(Service::class);
+        return $this->hasMany(ProductPictures::class, 'product_id', 'item_id');
     }
 }
