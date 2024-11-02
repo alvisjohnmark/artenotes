@@ -1,18 +1,179 @@
 <script setup>
+import { clientStore } from "./PageStore/clientStore";
+import { Trash2, ShoppingBasket } from "lucide-vue-next";
 import SemiNav from "../components/seminav.vue";
+import Footer from "../components/footer.vue";
+import { onMounted } from "vue";
+
+const render = clientStore();
+
+onMounted(() => {
+    render.fetchCartItems();
+});
 </script>
 
-
 <template>
-    <section class="bg-lpbgcolor min-h-screen">
-        <SemiNav/>
-        <main>
-            <router-link to="/"
+    <SemiNav />
+    <section class="bg-lpbgcolor min-h-screen p-8">
+        <div
+            class="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-lg p-8 gap-8 mt-6"
+        >
+            <h2 class="text-2xl font-semibold mb-6 text-lptxcolor">
+                Shopping Cart
+            </h2>
+            <router-link
+                to="/products"
+                class="mt-4 p-4 bg-lptxcolor text-white py-2 rounded-lg font-semibold"
             >
-            Continue shopping ...
-        </router-link>
-        </main>
+                Continue Shopping
+            </router-link>
+            <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8 mt-4">
+                <div>
+                    <div
+                        class="grid grid-cols-[3fr_1fr_1fr_1fr] gap-4 text-center font-semibold text-lptxcolor"
+                    >
+                        <span>Product Details</span>
+                        <span>Quantity</span>
+                        <span>Price</span>
+                        <span>Action</span>
+                    </div>
+                    <hr />
+
+                    <div class="space-y-4 mt-4">
+                        <div
+                            v-if="render.cart_list.length <= 0"
+                            class="flex flex-col items-center justify-center p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-md"
+                        >
+                            <ShoppingBasket :size="32" :stroke-width="1" />
+                            <p class="text-lg font-medium text-gray-600 mb-2">
+                                Your cart is empty
+                            </p>
+                            <p class="text-gray-500 mb-4">
+                                It looks like you haven't added anything yet.
+                            </p>
+                            <router-link
+                                to="/products"
+                                class="mt-4 p-4 bg-lptxcolor text-white py-2 rounded-lg font-semibold"
+                            >
+                                Continue Shopping
+                            </router-link>
+                        </div>
+
+                        <div
+                            v-else
+                            class="bg-[#d8e5b0] p-4 rounded-lg grid grid-cols-[3fr_1fr_1fr_1fr] items-center gap-4"
+                            v-for="item in render.cart_list"
+                            :key="item.id"
+                        >
+                            <div class="flex items-center">
+                                <div class="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        id="checkbox-{{ item.id }}"
+                                        v-model="item.checked"
+                                        class="custom-checkbox accent-lptxcolor hover:accent-lptxcolorsemilight w-6 h-6 cursor-pointer"
+                                    />
+                                </div>
+
+                                <div
+                                    class="w-full h-40 rounded-t-xl flex justify-center items-center mb-4"
+                                >
+                                    <img
+                                        v-if="item.product.pictures.length"
+                                        :src="`/storage/${item.product.pictures[0].file_path}`"
+                                        alt="Product Image"
+                                        class="h-full object-cover rounded-t-xl px-2"
+                                    />
+                                </div>
+                                <div>
+                                    <h1
+                                        class="text-2xl font-semibold text-lptxcolor"
+                                    >
+                                        {{ item.product.name }}
+                                    </h1>
+                                    <p
+                                        class="text-lg font-semibold font-bebasneue text-lptxcolorsemilight"
+                                    >
+                                        {{ item.product.size }}
+                                    </p>
+                                    <p
+                                        class="text-lg font-semibold text-lptxcolorsemilight"
+                                    >
+                                        Sheets per Set:
+                                        {{ item.product.sheets_per_set }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <input
+                                    type="number"
+                                    v-model="item.quantity"
+                                    class="w-20 p-2 text-center border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-fmbtcolor focus:border-transparent transition ease-in-out duration-200"
+                                    min="1"
+                                    @change="render.updateQuantity(item)"
+                                />
+                            </div>
+                            <h1
+                                class="text-xl text-lptxcolorsemilight text-center"
+                            >
+                                {{ item.product.price }}
+                            </h1>
+                            <button
+                                @click="render.removeFromCart(item.id)"
+                                class="text-gray-500 flex justify-center"
+                            >
+                                <Trash2 class="text-center" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#f9ffe8] p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold text-lptxcolor">
+                        Order Details
+                    </h3>
+                    <ul class="mt-4 space-y-2 text-lptxcolorsemilight">
+                        <li
+                            v-for="item in render.getOrderDetails.items"
+                            :key="item.name"
+                            class="flex justify-between"
+                        >
+                            <span>{{ item.name }}</span>
+                            <span>PHP {{ item.totalPrice }}</span>
+                        </li>
+
+                        <li
+                            class="border-t mt-2 pt-2 flex justify-between text-lptxcolor"
+                        >
+                            <span>Subtotal</span>
+                            <span
+                                >PHP {{ render.getOrderDetails.subtotal }}</span
+                            >
+                        </li>
+                        <li class="flex justify-between text-lptxcolor">
+                            <span>Delivery Fee</span>
+                            <span
+                                >PHP
+                                {{ render.getOrderDetails.deliveryFee }}</span
+                            >
+                        </li>
+                        <li
+                            class="border-t mt-2 pt-2 flex justify-between font-bold text-lptxcolor"
+                        >
+                            <span>Total</span>
+                            <span>PHP {{ render.getOrderDetails.total }}</span>
+                        </li>
+                    </ul>
+                    <button
+                        class="mt-4 w-full bg-lptxcolor text-white py-2 rounded-lg font-semibold"
+                    >
+                        PROCEED TO CHECKOUT
+                    </button>
+                </div>
+            </div>
+        </div>
     </section>
+    <Footer />
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

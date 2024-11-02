@@ -59,7 +59,7 @@ const route = useRoute();
 
                     <div
                         v-if="user.showDropdown"
-                        class="absolute right-0 mt-2 py-2 w-48 mt-12 bg-white rounded-md shadow-lg"
+                        class="absolute right-0 mt-12 py-2 w-48 mt-12 bg-white rounded-md shadow-lg"
                     >
                         <router-link
                             to="/profile"

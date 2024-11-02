@@ -68,7 +68,7 @@ onMounted(() => {
                         <div class="flex items-center">
                             <input
                                 type="number"
-                                v-model="render.quantity"
+                                v-model="product.quantity"
                                 class="w-16 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fmbtcolor"
                                 min="1"
                                 :max="product.stock"
@@ -84,7 +84,9 @@ onMounted(() => {
                                 render.addToCart(
                                     product.id,
                                     'product',
-                                    product.price
+                                    product.quantity,
+                                    product.price,
+                                    product.stock
                                 )
                             "
                         >

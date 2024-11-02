@@ -9,7 +9,6 @@ const user = authStore();
 <template>
     <section class="bg-lpbgcolor min-h-screen">
         <Nav />
-        <!-- Hero section -->
         <div class="bg-[#f7f2ef] py-2 pb-32">
             <div class="relative">
                 <router-link
