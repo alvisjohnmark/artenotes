@@ -39,6 +39,11 @@ Route::prefix('client')->group(function () {
         Route::get('getCartItems', [cartController::class, 'getCartItems']);
         Route::put('updateQuantity/{id}', [cartController::class, 'updateQuantity']);
         Route::delete('removeFromCart/{id}', [cartController::class, 'removeFromCart']);
+        Route::get('getClientDetails', [clientController::class, 'getClientDetails']);
+        Route::put('saveAddress/{id}', [clientController::class, 'saveAddress']);
+        Route::post('checkoutOrder/{id}', [cartController::class, 'checkoutOrder']);
+        Route::post('saveOrderItems/{id}', [cartController::class, 'saveOrderItems']);
+        Route::put('updateChecked/{id}', [cartController::class, 'updateChecked']);
     });
 });
 
