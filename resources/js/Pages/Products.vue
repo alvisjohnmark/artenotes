@@ -58,10 +58,10 @@ onMounted(() => {
                             "
                             class="font-medium text-sm"
                         >
-                            Stock:
+                            
                             {{
                                 product.stock > 0
-                                    ? `${product.stock} available`
+                                    ? `${product.stock} items remaining`
                                     : "Out of stock"
                             }}
                         </p>
