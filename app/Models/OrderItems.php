@@ -9,21 +9,14 @@ class OrderItems extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'order_id',
-        'product_id',
-        'service_id',
-        'quantity',
-        'total_amount',
-    ];
+    protected $fillable = ['cart_id', 'item_id', 'item_type', 'quantity', 'price', 'total_price'];
 
-    // Relationship with the Order model
+
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
 
-    // Optionally, relationships for Product and Service
     public function product()
     {
         return $this->belongsTo(Product::class);
