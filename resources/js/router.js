@@ -8,6 +8,7 @@ import Services from "./Pages/Services.vue";
 import Register from "./Pages/Auth/Register.vue";
 import Login from "./Pages/Auth/Login.vue";
 import Cart from "./Pages/Cart.vue";
+import Checkout from "./Pages/Checkout.vue";
 
 //admin
 import LoginAdmin from "./Pages/Auth/LoginAdmin.vue";
@@ -51,6 +52,11 @@ export const routes = [
     {
         path: "/cart",
         component: Cart,
+        beforeEnter: clientRouteGuard,
+    },
+    {
+        path: "/checkout",
+        component: Checkout,
         beforeEnter: clientRouteGuard,
     },
     {
