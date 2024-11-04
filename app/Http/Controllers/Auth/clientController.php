@@ -5,33 +5,31 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class clientController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:clients', 
-            'password' => 'required|string|min:8',
-        ]);
-    
-        // Create client
         $client = Client::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make(value: $request->password),
         ]);
     
-        // Automatically create a cart for the newly registered client
         Cart::create([
             'client_id' => $client->id,
         ]);
+
+        Order::create([
+            'client_id' => $client->id,
+        ]);
     
-        // Generate token for the client
         $token = $client->createToken('client-token')->plainTextToken;
     
         return response()->json([
@@ -49,19 +47,43 @@ class clientController extends Controller
 
         $client = Client::where('email', $request->email)->first();
 
-        // Check if client exists and password matches
         if (!$client || !Hash::check($request->password, $client->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-
-        // Create Sanctum token for the logged-in client
         $token = $client->createToken('client-token')->plainTextToken;
 
         return response()->json([
             'client' => $client,
             'token' => $token
         ], 200);
+    }
+
+    public function getClientDetails()
+    {
+        $clientId = Auth::id();
+
+        $clientDetails = Client::find($clientId);
+        return response()->json($clientDetails);
+    }
+
+    public function saveAddress(Request $request, $id)
+    {
+        $client = Client::find($id);
+        if (!$client) {
+            return response()->json(['message' => 'client not found'], 404);
+        }
+    
+        $client->street = $request->street;
+        $client->{"city/town"} = $request->city; 
+        $client->province = $request->province;
+        $client->country = $request->country;
+        $client->zipcode = $request->zipcode;
+        $client->hasAddress = 1;
+        $client->save();
+
+    
+        return response()->json(['message' => ' addresss added']);
     }
 }
