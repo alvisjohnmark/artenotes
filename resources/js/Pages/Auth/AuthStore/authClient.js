@@ -3,7 +3,8 @@ import Swal from "sweetalert2";
 
 export const authStore = defineStore("auth", {
     state: () => ({
-        name: "",
+        first_name: "",
+        last_name: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -42,7 +43,8 @@ export const authStore = defineStore("auth", {
                     return;
                 }
                 const response = await axios.post("/api/client/register", {
-                    name: this.name,
+                    first_name: this.first_name,
+                    last_name: this.last_name,
                     email: this.email,
                     password: this.password,
                 });

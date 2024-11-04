@@ -1,15 +1,49 @@
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export const clientStore = defineStore("clientStore", {
     state: () => ({
         product_list: [],
         service_list: [],
         cart_list: [],
+        client_details: {},
+        items: [],
         quantity: 1,
+        showAddressModal: false,
+        address: {
+            street: "",
+            city: "",
+            province: "",
+            country: "",
+            zipcode: "",
+        },
         token: localStorage.getItem("token") || null,
     }),
     actions: {
+        async fetchClientDetails() {
+            try {
+                const response = await axios.get(
+                    `/api/client/getClientDetails`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.token}`,
+                        },
+                    }
+                );
+
+                this.client_details = response.data;
+                console.log(this.client_details);
+            } catch (error) {
+                console.error("Error fetching client details:", error);
+                Swal.fire(
+                    "Error",
+                    "Could not retrieve client details. Please try again.",
+                    "error"
+                );
+            }
+        },
+
         async fetchProducts() {
             try {
                 const response = await axios.get(`/api/getProducts`, {
@@ -42,6 +76,7 @@ export const clientStore = defineStore("clientStore", {
                 console.error("Error fetching services:", error);
             }
         },
+
         async fetchCartItems() {
             try {
                 const response = await axios.get(`/api/client/getCartItems`, {
@@ -110,7 +145,16 @@ export const clientStore = defineStore("clientStore", {
             }
         },
 
-        checkout() {
+        async checkAddress() {
+            await this.fetchClientDetails();
+            if (this.client_details.hasAddress === 0) {
+                this.showAddressModal = true;
+            } else if (this.client_details.hasAddress === 1) {
+                await this.createOrder();
+            }
+        },
+
+        async saveAddress() {
             if (!this.token) {
                 Swal.fire({
                     title: "Login Required",
@@ -120,10 +164,105 @@ export const clientStore = defineStore("clientStore", {
                 }).then(() => {
                     this.router.push("/login");
                 });
-            } else {
-                Swal.fire("Proceeding to checkout", "Redirecting...", "info");
+                return;
+            }
+
+            if (
+                !this.address.street ||
+                !this.address.city ||
+                !this.address.province ||
+                !this.address.country ||
+                !this.address.zipcode
+            ) {
+                Swal.fire({
+                    title: "Missing Information",
+                    text: "Please fill out all address fields.",
+                    icon: "warning",
+                    confirmButtonText: "Ok",
+                });
+                return;
+            }
+
+            try {
+                const response = await axios.put(
+                    `/api/client/saveAddress/${this.client_details.id}`,
+                    this.address,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.token}`,
+                        },
+                    }
+                );
+                console.log(this.address);
+                this.showAddressModal = false;
+
+                Swal.fire(
+                    "Address Saved",
+                    "Your address has been saved successfully.",
+                    "success"
+                );
+                await this.createOrder();
+            } catch (error) {
+                console.error("Error saving address:", error);
+                Swal.fire(
+                    "Error",
+                    "Could not save address. Please try again.",
+                    "error"
+                );
             }
         },
+
+        async createOrder() {
+            try {
+                const orderDetails = this.getOrderDetails;
+
+                const orderResponse = await axios.post(
+                    `/api/client/checkoutOrder/${this.client_details.id}`,
+                    {
+                        client_id: this.client_details.id,
+                        total: orderDetails.total,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.token}`,
+                        },
+                    }
+                );
+
+                const orderId = orderResponse.data.order_id;
+                for (const item of orderDetails.items) {
+                    await axios.post(
+                        `/api/client/saveOrderItems/${orderId}`,
+                        {
+                            order_id: orderId,
+                            item_id: item.id,
+                            quantity: item.quantity,
+                            total_price: item.totalPrice,
+                        },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${this.token}`,
+                            },
+                        }
+                    );
+                }
+
+                Swal.fire(
+                    "Order Successful",
+                    "Your order has been placed successfully.",
+                    "success"
+                );
+                this.router.push("/checkout");
+            } catch (error) {
+                console.error("Error creating order:", error);
+                Swal.fire(
+                    "Error",
+                    "Could not place the order. Please try again.",
+                    "error"
+                );
+            }
+        },
+
         async updateQuantity(item) {
             try {
                 const response = await axios.put(
@@ -181,11 +320,33 @@ export const clientStore = defineStore("clientStore", {
                 );
             }
         },
+        async updateCheckedStatus(item) {
+            const { id: itemId, checked } = item; // Extract id and checked from item
+            try {
+                await axios.put(
+                    `/api/client/updateChecked/${itemId}`,
+                    {
+                        checked: checked ? 1 : 0,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.token}`,
+                        },
+                    }
+                );
+                const foundItem = this.items.find((i) => i.id === itemId);
+                if (foundItem) {
+                    foundItem.checked = checked;
+                }
+            } catch (error) {
+                console.error("Error updating checked status:", error);
+            }
+        },
     },
     getters: {
         getOrderDetails: (state) => {
             const items = state.cart_list
-                .filter((item) => item.checked) 
+                .filter((item) => item.checked)
                 .map((item) => ({
                     id: item.id,
                     name: item.product.name,
