@@ -76,9 +76,8 @@ class clientController extends Controller
         }
     
         $client->street = $request->street;
-        $client->{"city/town"} = $request->city; 
+        $client->{"city/municipality"} = $request->city_municipality; 
         $client->province = $request->province;
-        $client->country = $request->country;
         $client->zipcode = $request->zipcode;
         $client->hasAddress = 1;
         $client->save();

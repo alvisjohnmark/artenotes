@@ -9,7 +9,7 @@ class OrderItems extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cart_id', 'item_id', 'item_type', 'quantity', 'price', 'total_price'];
+    protected $fillable = ['recipient_detail_id','order_id', 'item_id', 'item_type', 'quantity', 'price', 'total_price'];
 
 
     public function order()
@@ -19,12 +19,16 @@ class OrderItems extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'item_id');
     }
-
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function recipientdetail()
+    {
+        return $this->belongsTo(RecipientDetail::class);
     }
 
     

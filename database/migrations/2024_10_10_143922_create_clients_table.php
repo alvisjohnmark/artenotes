@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('street')->nullable();
-            $table->string('city/town')->nullable();
+            $table->string('city/municipality')->nullable();
             $table->string('province')->nullable();
-            $table->string('country')->nullable();
+            $table->string('barangay')->nullable();
             $table->integer('zipcode')->nullable();
             $table->smallInteger('hasAddress')->default(0);
             $table->rememberToken();

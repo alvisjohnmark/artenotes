@@ -10,7 +10,7 @@ class CartItems extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cart_id', 'item_id', 'item_type', 'quantity', 'price', 'total_price'];
+    protected $fillable = ['recipient_detail_id','cart_id', 'item_id', 'item_type', 'quantity', 'price', 'total_price'];
 
     public function cart()
     {
@@ -21,6 +21,16 @@ class CartItems extends Model
     {
         return $this->belongsTo(Product::class, 'item_id');
     }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'item_id');
+    }
+    public function recipientDetail()
+    {
+        return $this->belongsTo(RecipientDetail::class, 'recipient_detail_id');
+    }
+    
 
     public function pictures()
     {
