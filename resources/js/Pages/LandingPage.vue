@@ -1,9 +1,16 @@
 <script setup>
 import { Facebook, Instagram, Youtube } from "lucide-vue-next";
 import { authStore } from "./Auth/AuthStore/authClient";
+import { onMounted } from "vue";
 import Nav from "../components/nav.vue";
 import Footer from "../components/footer.vue";
 const user = authStore();
+
+onMounted(() => {
+    user.checkTokenAndProceed(async () => {
+        console.log("running...");
+    });
+});
 </script>
 
 <template>
@@ -190,40 +197,104 @@ const user = authStore();
             </div>
         </div>
 
-        <!-- Mission and Vision Section -->
         <div
-            class="py-16 bg-cover bg-center relative"
+            class="py-16 bg-cover bg-center min-h-[750px]"
             style="background-image: url('/img/lpbg1.jpg')"
         >
-            <div
-                class="relative flex flex-col md:flex-row justify-center items-center md:space-x-8 px-6"
-            >
-                <div class="w-full md:w-1/2 h-[400px] mb-8 md:mb-0">
-                    <img
-                        src="/public/img/mv.jpg"
-                        alt="Mission & Vision"
-                        class="object-cover h-full w-full rounded-lg shadow-lg"
-                    />
-                </div>
+            <div class="py-16 max-w-7xl mx-auto">
+                <h2
+                    class="text-center text-5xl font-playfair text-[#3f3f29] mb-8 tracking-wide"
+                >
+                    Our Specialties
+                </h2>
+                <p
+                    class="text-center text-lg text-[#4a4838] max-w-3xl mx-auto mb-12 px-4"
+                >
+                    At Artenotes, we are dedicated to crafting eco-friendly
+                    products and services that inspire meaningful, sustainable
+                    connections.
+                </p>
 
-                <!-- Text Section -->
-                <div class="w-full md:w-1/2 text-center md:text-left">
-                    <h2 class="text-4xl font-playfair text-lptxcolor mb-4">
-                        Our Mission & Vision
-                    </h2>
-                    <p
-                        class="text-lg text-lptxcolor leading-relaxed text-justify"
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+                    <!-- Card 1: Premium Recycled Paper -->
+                    <div
+                        class="group overflow-hidden rounded-2xl shadow-lg transition-transform transform hover:scale-105 bg-gradient-to-b from-[#e2dfd4] to-[#e2dfd4]"
                     >
-                        Our mission is to promote sustainability and creativity
-                        by offering eco-friendly stationery and personalized
-                        services that inspire deeper, more meaningful
-                        connections. We envision a world where thoughtful
-                        communication and sustainability go hand in hand,
-                        encouraging a greener planet one letter at a time.
-                    </p>
+                        <div class="relative">
+                            <img
+                                src="/public/img/hero1.png"
+                                alt="Premium Recycled Paper"
+                                class="object-cover w-full h-64 transition-all duration-300 group-hover:scale-110"
+                            />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black opacity-40"
+                            ></div>
+                            <div
+                                class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center"
+                            >
+                       
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 text-center text-[#4a4838]">
+                            High-quality recycled paper crafted with
+                            eco-consciousness in mind, perfect for sustainable
+                            stationery.
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Custom Eco-Stationery -->
+                    <div
+                        class="group overflow-hidden rounded-2xl shadow-lg transition-transform transform hover:scale-105 bg-gradient-to-b from-[#d8d3ca] to-[#d8d3ca]"
+                    >
+                        <div class="relative">
+                            <img
+                                src="/public/img/hero2.png"
+                                alt="Custom Eco-Stationery"
+                                class="object-cover w-full h-64 transition-all duration-300 group-hover:scale-110"
+                            />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black opacity-40"
+                            ></div>
+                            <div
+                                class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center"
+                            >
+                                
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 text-center text-[#4a4838]">
+                            Bespoke stationery options crafted from sustainable
+                            materials for eco-minded personalization.
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Eco-Friendly Packaging -->
+                    <div
+                        class="group overflow-hidden rounded-2xl shadow-lg transition-transform transform hover:scale-105 bg-gradient-to-b from-[#d0ccc4] to-[#d0ccc4]"
+                    >
+                        <div class="relative">
+                            <img
+                                src="/public/img/hero3.png"
+                                alt="Eco-Friendly Packaging"
+                                class="object-cover w-full h-64 transition-all duration-300 group-hover:scale-110"
+                            />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black opacity-40"
+                            ></div>
+                            <div
+                                class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center"
+                            >
+                            
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 text-center text-[#4a4838]">
+                            Thoughtfully designed, biodegradable packaging
+                            solutions to protect your products and the planet.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
         <Footer />
     </section>
 </template>

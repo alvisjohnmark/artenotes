@@ -6,10 +6,15 @@ use App\Http\Controllers\Auth\adminController;
 use App\Http\Controllers\Auth\clientController;
 use App\Http\Controllers\appController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\PaymentController;
 
 //home routes
 Route::get('/getProducts', [appController::class, 'getProducts']);
 Route::get('/getServices', [appController::class, 'getServices']);
+Route::post('/payment-intent', [PaymentController::class, 'createPaymentIntent']);
+Route::post('/confirm-payment', [PaymentController::class, 'confirmPayment']);
+Route::post('/update-order-status', [PaymentController::class, 'updateOrderStatus']);
+
 
 // Admin routes
 Route::prefix('admin')->group(function () {
@@ -42,8 +47,10 @@ Route::prefix('client')->group(function () {
         Route::get('getClientDetails', [clientController::class, 'getClientDetails']);
         Route::put('saveAddress/{id}', [clientController::class, 'saveAddress']);
         Route::post('checkoutOrder/{id}', [cartController::class, 'checkoutOrder']);
-        Route::post('saveOrderItems/{id}', [cartController::class, 'saveOrderItems']);
+        Route::put('saveOrderItems', [cartController::class, 'saveOrderItems']);
         Route::put('updateChecked/{id}', [cartController::class, 'updateChecked']);
+        Route::get('getOrderItems', [cartController::class, 'getOrderItems']);
+        Route::delete('removeFromOrder/{id}', [cartController::class, 'removeFromOrder']);
     });
 });
 

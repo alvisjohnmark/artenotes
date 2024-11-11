@@ -10,13 +10,26 @@ export const authStore = defineStore("auth", {
         confirmPassword: "",
         showDropdown: false,
         showPassword: false,
-        showConfirmPassword: false, 
-        showPasswordIcon: false, 
-        showConfirmPasswordIcon: false, 
+        showConfirmPassword: false,
+        showPasswordIcon: false,
+        showConfirmPasswordIcon: false,
         token: localStorage.getItem("token") || null,
     }),
     actions: {
-        toggleDropDown(){
+        logout() {
+            this.token = null;
+            localStorage.removeItem("token");
+            this.router.push("/");
+        },
+
+        async checkTokenAndProceed(action) {
+            if (!this.token) {
+                this.logout();
+            } else {
+                await action();
+            }
+        },
+        toggleDropDown() {
             this.showDropdown = !this.showDropdown;
         },
         togglePasswordVisibility() {
@@ -29,7 +42,7 @@ export const authStore = defineStore("auth", {
             this.showPasswordIcon = !!this.password;
         },
         onConfirmPasswordInput() {
-            this.showConfirmPasswordIcon = !!this.confirmPassword; 
+            this.showConfirmPasswordIcon = !!this.confirmPassword;
         },
         async registerUser() {
             try {

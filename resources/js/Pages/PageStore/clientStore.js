@@ -8,19 +8,57 @@ export const clientStore = defineStore("clientStore", {
         service_list: [],
         cart_list: [],
         client_details: {},
+        order_list: [],
         items: [],
         quantity: 1,
         showAddressModal: false,
+        showRecipientAddress: false,
+        showTable: true,
+        recipientDetails: {
+            font: "",
+            province: "",
+            city_municipality: "",
+            barangay: "",
+            street: "",
+            message: "",
+            has_rose: false,
+            envelope_color: "",
+            recipient_name: "",
+        },
         address: {
             street: "",
-            city: "",
+            city_municipality: "",
             province: "",
-            country: "",
             zipcode: "",
         },
+        selectedService: null,
+
         token: localStorage.getItem("token") || null,
     }),
     actions: {
+        toggleTable() {
+            this.showTable = !this.showTable;
+        },
+        setSelectedService(service) {
+            this.selectedService = service;
+            this.showRecipientAddress = !this.showRecipientAddress;
+            console.log(service);
+        },
+
+        toggleRecipientAddress() {
+            this.showRecipientAddress = !this.showRecipientAddress;
+            if (!this.showRecipientAddress) {
+                this.resetForm();
+            }
+        },
+        resetForm() {
+            this.font = "";
+            this.province = "";
+            this.city_municipality = "";
+            this.barangay = "";
+            this.street = "";
+            this.message = "";
+        },
         async fetchClientDetails() {
             try {
                 const response = await axios.get(
@@ -33,7 +71,6 @@ export const clientStore = defineStore("clientStore", {
                 );
 
                 this.client_details = response.data;
-                console.log(this.client_details);
             } catch (error) {
                 console.error("Error fetching client details:", error);
                 Swal.fire(
@@ -56,8 +93,6 @@ export const clientStore = defineStore("clientStore", {
                     ...product,
                     quantity: 1,
                 }));
-
-                console.log(this.product_list);
             } catch (error) {
                 console.error("Error fetching products:", error);
             }
@@ -71,11 +106,11 @@ export const clientStore = defineStore("clientStore", {
                     },
                 });
                 this.service_list = response.data;
-                console.log(this.service_list);
             } catch (error) {
                 console.error("Error fetching services:", error);
             }
         },
+
 
         async fetchCartItems() {
             try {
@@ -85,14 +120,36 @@ export const clientStore = defineStore("clientStore", {
                     },
                 });
 
-                this.cart_list = response.data.map((item) => ({
-                    ...item,
-                    checked: false,
-                }));
-
-                console.log(this.cart_list);
+                this.cart_list = response.data
+                    .filter(
+                        (item, index, self) =>
+                            index ===
+                            self.findIndex(
+                                (t) =>
+                                    t.item_id === item.item_id &&
+                                    t.item_type === item.item_type
+                            )
+                    )
+                    .map((item) => ({
+                        ...item,
+                        checked: false,
+                    }));
             } catch (error) {
                 console.error("Error fetching carts:", error);
+            }
+        },
+
+        async fetchOrderItems() {
+            try {
+                const response = await axios.get(`/api/client/getOrderItems`, {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                });
+
+                this.order_list = response.data;
+            } catch (error) {
+                console.error("Error fetching orders:", error);
             }
         },
 
@@ -145,6 +202,46 @@ export const clientStore = defineStore("clientStore", {
             }
         },
 
+        async addToCartService(item_id, item_type, price, recipientDetails) {
+            if (!this.token) {
+                Swal.fire({
+                    title: "Login Required",
+                    text: "Please log in to proceed with checkout.",
+                    icon: "warning",
+                    confirmButtonText: "Login",
+                }).then(() => {
+                    this.router.push("/login");
+                });
+            } else {
+                try {
+                    await axios.post(
+                        "/api/client/addToCart",
+                        { item_id, item_type, price, recipientDetails },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${this.token}`,
+                            },
+                        }
+                    );
+                    Swal.fire(
+                        "Added to cart!",
+                        `${
+                            item_type.charAt(0).toUpperCase() +
+                            item_type.slice(1)
+                        } added successfully.`,
+                        "success"
+                    );
+                } catch (error) {
+                    console.error(error.response);
+                    Swal.fire(
+                        "Error",
+                        "Could not add item to cart. Please try again.",
+                        "error"
+                    );
+                }
+            }
+        },
+
         async checkAddress() {
             await this.fetchClientDetails();
             if (this.client_details.hasAddress === 0) {
@@ -169,9 +266,8 @@ export const clientStore = defineStore("clientStore", {
 
             if (
                 !this.address.street ||
-                !this.address.city ||
+                !this.address.city_municipality ||
                 !this.address.province ||
-                !this.address.country ||
                 !this.address.zipcode
             ) {
                 Swal.fire({
@@ -229,15 +325,15 @@ export const clientStore = defineStore("clientStore", {
                     }
                 );
 
-                const orderId = orderResponse.data.order_id;
+                // const orderId = orderResponse.data.order_id;
                 for (const item of orderDetails.items) {
-                    await axios.post(
-                        `/api/client/saveOrderItems/${orderId}`,
+                    await axios.put(
+                        `/api/client/saveOrderItems`,
                         {
-                            order_id: orderId,
+                            // order_id: orderId,
                             item_id: item.id,
                             quantity: item.quantity,
-                            total_price: item.totalPrice,
+                            total_price: item.total,
                         },
                         {
                             headers: {
@@ -286,7 +382,6 @@ export const clientStore = defineStore("clientStore", {
                 console.error(error.response.data);
             }
         },
-
         async removeFromCart(id) {
             try {
                 const result = await Swal.fire({
@@ -320,6 +415,8 @@ export const clientStore = defineStore("clientStore", {
                 );
             }
         },
+
+        
         async updateCheckedStatus(item) {
             const { id: itemId, checked } = item; // Extract id and checked from item
             try {
@@ -344,14 +441,29 @@ export const clientStore = defineStore("clientStore", {
         },
     },
     getters: {
+        productItems: (state) =>
+            state.cart_list.filter((item) => item.item_type === "product"),
+        serviceItems: (state) =>
+            state.cart_list.filter((item) => item.item_type === "service"),
+
         getOrderDetails: (state) => {
             const items = state.cart_list
                 .filter((item) => item.checked)
-                .map((item) => ({
-                    id: item.id,
-                    name: item.product.name,
-                    totalPrice: item.quantity * item.product.price,
-                }));
+                .map((item) => {
+                    const isService = item.item_type === "service";
+                    const name = isService
+                        ? item.service.service_name
+                        : item.product.name;
+                    const price = isService
+                        ? item.service.service_price
+                        : item.product.price;
+
+                    return {
+                        id: item.id,
+                        name,
+                        totalPrice: item.quantity * price,
+                    };
+                });
 
             const subtotal = items.reduce(
                 (sum, item) => sum + item.totalPrice,

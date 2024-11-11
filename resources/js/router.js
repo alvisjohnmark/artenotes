@@ -9,6 +9,7 @@ import Register from "./Pages/Auth/Register.vue";
 import Login from "./Pages/Auth/Login.vue";
 import Cart from "./Pages/Cart.vue";
 import Checkout from "./Pages/Checkout.vue";
+import Thankyou from "./Pages/Thankyou.vue";
 
 //admin
 import LoginAdmin from "./Pages/Auth/LoginAdmin.vue";
@@ -57,6 +58,11 @@ export const routes = [
     {
         path: "/checkout",
         component: Checkout,
+        beforeEnter: clientRouteGuard,
+    },
+    {
+        path: "/thankyou",
+        component: Thankyou,
         beforeEnter: clientRouteGuard,
     },
     {

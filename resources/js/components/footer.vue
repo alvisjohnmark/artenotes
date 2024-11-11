@@ -1,6 +1,7 @@
 <script setup>
 import { Facebook, Instagram, Youtube } from "lucide-vue-next";
 </script>
+
 <template>
     <footer
         class="py-16 bg-cover bg-center relative"
@@ -31,6 +32,17 @@ import { Facebook, Instagram, Youtube } from "lucide-vue-next";
                     <Youtube :size="28" :stroke-width="1" />
                 </a>
             </div>
+
+            <!-- Join Us Button -->
+            <div class="py-4">
+                <router-link
+                    to="/register"
+                    class="inline-block bg-lptxcolorsemilight text-bglightcolor py-2 px-6 rounded-lg text-xl font-semibold hover:bg-lptxcolor transition duration-300"
+                >
+                    Join Us
+                </router-link>
+            </div>
+
             <div class="text-sm text-gray-300">
                 <p>&copy; 2024 artenotes. All Rights Reserved.</p>
             </div>
@@ -38,4 +50,4 @@ import { Facebook, Instagram, Youtube } from "lucide-vue-next";
     </footer>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

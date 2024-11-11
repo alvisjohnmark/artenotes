@@ -33,7 +33,7 @@ const route = useRoute();
             <div class="flex items-center space-x-4">
                 <router-link
                     v-if="!user.token"
-                    to="/login"
+                    to="/register"
                     class="text-lptxcolor flex items-center space-x-1"
                 >
                     <span>

@@ -38,34 +38,176 @@ onMounted(() => {
                             Price: ${{ service.service_price }}
                         </p>
                     </div>
-                    
                     <div
                         class="p-4 border-t border-gray-200 flex gap-2 bg-[#e8e0d5]"
                     >
                         <button
-                            class="bg-fmbtcolor text-white w-full py-2 rounded-lg font-semibold text-sm uppercase hover:bg-opacity-90 transition-all"
-                            @click="
-                                render.addToCart(
-                                    service.id,
-                                    'service',
-                                    service.price
-                                )
-                            "
+                            class="bg-lptxcolor text-lptxcolor w-full text-white py-2 rounded-lg font-semibold text-sm uppercase"
+                            @click="render.setSelectedService(service)"
                         >
-                            Add to Cart
+                            Avail
                         </button>
-                        <button
-                            class="border border-lptxcolor text-lptxcolor w-full py-2 rounded-lg font-semibold text-sm uppercase hover:bg-lptxcolor hover:text-white transition-all"
-                            @click="render.checkout"
-                        >
-                            Buy now
-                        </button>
+                    </div>
+                </div>
+                <div
+                    v-if="render.showRecipientAddress"
+                    class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center"
+                >
+                    <div
+                        class="bg-[#d9e2c7] rounded-lg shadow-lg p-8 w-full max-w-3xl mx-auto"
+                    >
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="flex-1">
+                                <h2
+                                    class="text-xl font-bold mb-2 text-gray-800"
+                                >
+                                    Your message:
+                                </h2>
+                                <p class="text-sm mb-4">
+                                    (maximum of 500 words)
+                                </p>
+                                <textarea
+                                    v-model="render.recipientDetails.message"
+                                    rows="18"
+                                    class="w-full p-2 mb-4 border rounded-lg bg-white"
+                                ></textarea>
+                            </div>
+
+                            <div class="flex-1 space-y-4">
+                                <div>
+                                    <label class="block font-bold mb-1"
+                                        >Font:</label
+                                    >
+                                    <input
+                                        v-model="render.recipientDetails.font"
+                                        placeholder="Please type in your desired font..."
+                                        class="w-full p-2 border rounded bg-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label class="block font-bold mb-1"
+                                        >Envelope:</label
+                                    >
+                                    <select
+                                        v-model="
+                                            render.recipientDetails
+                                                .envelope_color
+                                        "
+                                        class="w-full p-2 border rounded bg-white"
+                                        placeholder="Color"
+                                    >
+                                        <option value="beige">Beige</option>
+                                        <option value="brown">Brown</option>
+                                        <option value="white">White</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block font-bold mb-1"
+                                        >Additional:</label
+                                    >
+                                    <div class="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            v-model="
+                                                render.recipientDetails.has_rose
+                                            "
+                                            class="form-checkbox h-5 w-5 text-lptxcolor"
+                                        />
+                                        <span>Red roses (additional ₱100)</span>
+                                    </div>
+                                    <div
+                                        class="flex items-center space-x-2 mt-2"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            class="form-checkbox h-5 w-5 text-lptxcolor"
+                                        />
+                                        <span>None</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block font-bold mb-1"
+                                        >Ship to:</label
+                                    >
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <input
+                                            v-model="
+                                                render.recipientDetails
+                                                    .recipient_name
+                                            "
+                                            placeholder="Recipient Name"
+                                            class="w-full p-2 border rounded bg-white"
+                                        />
+                                        <input
+                                            v-model="
+                                                render.recipientDetails.province
+                                            "
+                                            placeholder="Province"
+                                            class="w-full p-2 border rounded bg-white"
+                                        />
+                                        <input
+                                            v-model="
+                                                render.recipientDetails
+                                                    .city_municipality
+                                            "
+                                            placeholder="City/Municipality"
+                                            class="w-full p-2 border rounded bg-white"
+                                        />
+                                        <input
+                                            v-model="
+                                                render.recipientDetails.barangay
+                                            "
+                                            placeholder="Barangay"
+                                            class="w-full p-2 border rounded bg-white"
+                                        />
+                                        <input
+                                            v-model="
+                                                render.recipientDetails.street
+                                            "
+                                            placeholder="Street"
+                                            class="w-full p-2 border rounded bg-white"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-4 mt-8">
+                            <button
+                                class="bg-lptxcolor text-white px-4 py-2 rounded-md hover:bg-opacity-90"
+                                @click="
+                                    render.addToCartService(
+                                        render.selectedService.id,
+                                        'service',
+                                        render.selectedService.service_price,
+                                        render.recipientDetails
+                                    )
+                                "
+                            >
+                                Add to Cart
+                            </button>
+
+                            <button
+                                @click="render.toggleRecipientAddress"
+                                class="bg-blue-600 text-white px-4 py-2 rounded-md over:bg-opacity-90"
+                            >
+                                Checkout
+                            </button>
+                            <button
+                                @click="render.toggleRecipientAddress"
+                                class="bg-red-600 text-white px-4 py-2 rounded-md over:bg-opacity-90"
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
-        <Footer />
     </section>
+    <Footer />
 </template>
 
 <style scoped></style>

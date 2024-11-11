@@ -58,7 +58,6 @@ onMounted(() => {
                             "
                             class="font-medium text-sm"
                         >
-                            
                             {{
                                 product.stock > 0
                                     ? `${product.stock} items remaining`
@@ -102,6 +101,6 @@ onMounted(() => {
                 </div>
             </div>
         </main>
-        <Footer />
     </section>
+    <Footer />
 </template>

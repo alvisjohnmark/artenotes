@@ -34,7 +34,7 @@ function toggleMenu() {
             <div class="hidden md:flex items-center space-x-4">
                 <router-link
                     v-if="!user.token"
-                    to="/login"
+                    to="/register"
                     class="text-lptxcolor flex items-center space-x-1"
                 >
                     <span><LogIn :stroke-width="1" /></span>
