@@ -45,7 +45,7 @@ const route = useRoute();
                 </router-link>
                 <div v-else class="flex gap-2 relative">
                     <router-link
-                        to="cart"
+                        to="/cart"
                         class="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                     >
                         <ShoppingCart :size="32" :stroke-width="1" />

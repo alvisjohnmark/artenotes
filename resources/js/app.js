@@ -19,6 +19,15 @@ pinia.use(({ store }) => {
     store.route = markRaw(useRoute());
 });
 
+router.afterEach((to) => {
+    if (window.gtag) {
+        window.gtag('config', 'G-J8KXJ8PZ52', {
+            page_path: to.fullPath,
+        });
+    }
+});
+
+
 app.use(Vue3Toastify);
 app.use(pinia);
 app.use(router);

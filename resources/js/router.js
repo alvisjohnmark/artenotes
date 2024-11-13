@@ -10,7 +10,7 @@ import Login from "./Pages/Auth/Login.vue";
 import Cart from "./Pages/Cart.vue";
 import Checkout from "./Pages/Checkout.vue";
 import Thankyou from "./Pages/Thankyou.vue";
-
+import NotFound from "./Pages/NotFound.vue";
 //admin
 import LoginAdmin from "./Pages/Auth/LoginAdmin.vue";
 import RegisterAdmin from "./Pages/Auth/RegisterAdmin.vue";
@@ -49,6 +49,11 @@ export const routes = [
         path: "/login",
         component: Login,
         name: "Login",
+    },
+    {
+        path: "/:pathMatch(.*)*",
+        component: NotFound,
+        name: "NotFound",
     },
     {
         path: "/cart",

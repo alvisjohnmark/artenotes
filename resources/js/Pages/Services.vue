@@ -35,7 +35,7 @@ onMounted(() => {
                             {{ service.service_description }}
                         </p>
                         <p class="text-fmbtcolor font-bold text-lg my-2">
-                            Price: ${{ service.service_price }}
+                            Price: ₱{{ service.service_price }}
                         </p>
                     </div>
                     <div

@@ -111,7 +111,7 @@ onMounted(() => {
                             class="text-fmbtcolor"
                         />
                     </div>
-                    <h3 class="text-2xl font-bold">$53k</h3>
+                    <h3 class="text-2xl font-bold">₱53k</h3>
                     <p class="text-lptxcolorlight">+55% than last week</p>
                 </div>
 
@@ -150,7 +150,7 @@ onMounted(() => {
                             class="text-fmbtcolor"
                         />
                     </div>
-                    <h3 class="text-2xl font-bold">$103,430</h3>
+                    <h3 class="text-2xl font-bold">₱103,430</h3>
                     <p class="text-lptxcolorlight">+5% than yesterday</p>
                 </div>
             </div>
