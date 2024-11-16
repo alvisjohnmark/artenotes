@@ -164,7 +164,7 @@ onMounted(() => {
                             Organizer Set
                         </h3>
                         <p class="text-sm text-lptxcolor">Walnut</p>
-                        <p class="text-lg font-bold mt-2">₱149</p>
+                        <p class="text-lg font-bold mt-2">₱150</p>
                     </div>
                 </div>
                 <div class="mt-8 text-right">
