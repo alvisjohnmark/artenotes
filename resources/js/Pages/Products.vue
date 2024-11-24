@@ -86,18 +86,81 @@ onMounted(() => {
                                     product.quantity,
                                     product.price,
                                     product.stock
-                                )
+                                );
+                                if (window.gtag) {
+                                    window.gtag('event', 'checkout', {
+                                        value: 1,
+                                    });
+                                }
                             "
                         >
                             Add to Cart
                         </button>
-                        <button
+                        <!-- <button
                             class="border border-lptxcolor text-lptxcolor w-full py-2 rounded-lg font-semibold text-sm uppercase hover:bg-lptxcolor hover:text-white transition-all"
-                            @click="render.checkout"
+                            @click="render.checkAddress"
                         >
                             Buy now
-                        </button>
+                        </button> -->
                     </div>
+                </div>
+            </div>
+            <div
+                v-if="render.showAddressModal"
+                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+            >
+                <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+                    <h2 class="text-2xl font-semibold mb-4">
+                        Shipping Address
+                    </h2>
+
+                    <form @submit.prevent="render.saveAddress()">
+                        <div class="mb-4">
+                            <label class="block font-medium">Street</label>
+                            <input
+                                type="text"
+                                v-model="render.address.street"
+                                class="w-full p-2 border rounded-md"
+                                required
+                            />
+                        </div>
+                        <div class="mb-4">
+                            <label class="block font-medium"
+                                >City/Municipality</label
+                            >
+                            <input
+                                type="text"
+                                v-model="render.address.city_municipality"
+                                class="w-full p-2 border rounded-md"
+                                required
+                            />
+                        </div>
+                        <div class="mb-4">
+                            <label class="block font-medium">Province</label>
+                            <input
+                                type="text"
+                                v-model="render.address.province"
+                                class="w-full p-2 border rounded-md"
+                                required
+                            />
+                        </div>
+                        <div class="mb-4">
+                            <label class="block font-medium">Zipcode</label>
+                            <input
+                                type="text"
+                                v-model="render.address.zipcode"
+                                class="w-full p-2 border rounded-md"
+                                required
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="mt-4 w-full bg-lptxcolor text-white py-2 rounded-lg font-semibold"
+                        >
+                            Submit Address
+                        </button>
+                    </form>
                 </div>
             </div>
         </main>

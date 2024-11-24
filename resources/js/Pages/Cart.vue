@@ -215,7 +215,6 @@ onMounted(() => {
                     </div>
                     <hr />
 
-        
                     <div
                         v-if="render.cart_list.length <= 0"
                         class="flex flex-col items-center justify-center p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-md"
@@ -279,7 +278,7 @@ onMounted(() => {
                                     @click="render.removeFromCart(item.id)"
                                     class="text-blue-500"
                                 >
-                                   <View />
+                                    <View />
                                 </button>
                             </div>
                         </div>
@@ -325,7 +324,14 @@ onMounted(() => {
                         </li>
                     </ul>
                     <button
-                        @click="render.checkAddress"
+                        @click="
+                            render.checkAddress();
+                            if (window.gtag) {
+                                window.gtag('event', 'checkout', {
+                                    value: 1,
+                                });
+                            }
+                        "
                         class="mt-4 w-full bg-lptxcolor text-white py-2 rounded-lg font-semibold"
                     >
                         PROCEED TO CHECKOUT
@@ -351,7 +357,9 @@ onMounted(() => {
                         />
                     </div>
                     <div class="mb-4">
-                        <label class="block font-medium">City/Municipality</label>
+                        <label class="block font-medium"
+                            >City/Municipality</label
+                        >
                         <input
                             type="text"
                             v-model="render.address.city_municipality"
@@ -367,7 +375,6 @@ onMounted(() => {
                             class="w-full p-2 border rounded-md"
                             required
                         />
-                    
                     </div>
                     <div class="mb-4">
                         <label class="block font-medium">Zipcode</label>

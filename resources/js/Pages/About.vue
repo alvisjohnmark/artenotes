@@ -7,116 +7,146 @@ const user = authStore();
 <template>
     <section class="bg-lpbgcolor min-h-screen">
         <Nav />
-        <main class="px-4 py-12 sm:px-16">
-            <div class="max-w-3xl mx-auto text-center">
-                <h1
-                    class="text-4xl sm:text-5xl font-bebasneue text-lptxcolorsemilight mb-6"
-                >
-                    Welcome to Our Eco-Friendly World
-                </h1>
-                <p class="text-lg sm:text-xl text-lptxcolorlight mb-8">
-                    At artenotes, we are more than just a brand — we are a
-                    movement towards a sustainable future. By offering
-                    high-quality, eco-friendly products, we aim to inspire
-                    individuals to make positive changes in their everyday
-                    lives, helping to protect our planet for future generations.
-                </p>
-                <div class="text-left space-y-6">
-                    <h2
-                        class="text-2xl sm:text-3xl font-playfair text-lptxcolor mb-4"
+        <main class="px-4 py-10 sm:px-8">
+            <div class="max-w-4xl mx-auto text-center space-y-16">
+                <!-- Hero Section -->
+                <div class="space-y-6">
+                    <h1
+                        class="text-3xl sm:text-5xl font-bebasneue text-lptxcolorsemilight leading-tight"
                     >
-                        Our Mission
-                    </h2>
-                    <p class="text-lptxcolorlight text-base sm:text-lg">
-                        Our mission is simple: to create a world where
-                        sustainable choices are easy, affordable, and
-                        accessible. We are committed to providing eco-friendly
-                        products that contribute to a greener lifestyle. Whether
-                        it’s reducing waste, conserving resources, or promoting
-                        ethical manufacturing practices, we’re here to lead the
-                        charge in making sustainability mainstream.
+                        Welcome to Our Eco-Friendly World
+                    </h1>
+                    <p class="text-base sm:text-lg text-lptxcolorlight">
+                        At artenotes, we’re not just a brand — we’re a movement
+                        for change. Let’s make sustainability a way of life
+                        together.
                     </p>
+                    <button>
+                        <router-link
+                            to="/products"
+                            class="mt-6 bg-fmbtcolor text-bglightcolor py-2 px-6 rounded-full text-base sm:text-lg font-medium shadow-md hover:bg-lptxcolorsemilight transition duration-300"
+                        >
+                            Explore Our Products
+                        </router-link>
+                    </button>
+                </div>
 
-                    <h2
-                        class="text-2xl sm:text-3xl font-playfair text-lptxcolor mb-4"
-                    >
-                        Our Goal
-                    </h2>
-                    <p class="text-lptxcolorlight text-base sm:text-lg">
-                        Our goal is to be at the forefront of the eco-conscious
-                        movement, providing products that not only meet your
-                        needs but also align with your values. We aim to educate
-                        our customers on the importance of sustainability, and
-                        provide them with the tools and products to make
-                        informed, responsible choices. We envision a world where
-                        sustainable living is not a trend, but a way of life.
-                    </p>
+                <!-- Divider -->
+                <hr
+                    class="border-lptxcolorsemilight border-t-2 mx-auto w-full"
+                />
 
-                    <h2
-                        class="text-2xl sm:text-3xl font-playfair text-lptxcolor mb-4"
-                    >
-                        Motivation
-                    </h2>
-                    <p class="text-lptxcolorlight text-base sm:text-lg">
-                        What motivates us every day is the belief that the small
-                        changes we make today can have a monumental impact
-                        tomorrow. Our inspiration comes from the growing global
-                        awareness of environmental issues and the desire to be
-                        part of the solution. We know that by offering
-                        eco-friendly alternatives, we can help reduce the strain
-                        on the planet's resources and encourage others to do the
-                        same.
-                    </p>
+                <!-- Content Sections -->
+                <div class="space-y-12 text-left">
+                    <!-- Our Mission -->
+                    <div class="space-y-4">
+                        <h2
+                            class="text-xl sm:text-2xl font-playfair text-lptxcolor"
+                        >
+                            Our Mission
+                        </h2>
+                        <p
+                            class="text-lptxcolorlight text-sm sm:text-base leading-relaxed"
+                        >
+                            Our mission is to empower individuals to make
+                            sustainable choices every day. We believe that
+                            change begins with small, conscious actions, and
+                            we’re here to make those actions easier. By offering
+                            eco-friendly products, we provide tools to reduce
+                            waste, conserve natural resources, and minimize the
+                            environmental impact of our lifestyles.
+                        </p>
+                        <p
+                            class="text-lptxcolorlight text-sm sm:text-base leading-relaxed"
+                        >
+                            From reusable goods to ethically sourced materials,
+                            every product we create serves a purpose — to help
+                            our customers contribute to a healthier planet.
+                            We’re committed to reshaping how people think about
+                            consumption and sustainability.
+                        </p>
+                    </div>
 
-                    <h2
-                        class="text-2xl sm:text-3xl font-playfair text-lptxcolor mb-4"
-                    >
-                        Why We Care
-                    </h2>
-                    <p class="text-lptxcolorlight text-base sm:text-lg">
-                        Every day, we witness the effects of human activity on
-                        the environment — pollution, deforestation, and waste.
-                        As a brand, we believe we have a responsibility to
-                        protect and preserve the earth for future generations.
-                        This sense of responsibility drives everything we do,
-                        from the products we create to the partnerships we
-                        build. Our commitment to sustainability is not just
-                        about reducing our own footprint, but also about
-                        empowering our customers to make a difference.
-                    </p>
+                    <!-- Our Goal -->
+                    <div class="space-y-4">
+                        <h2
+                            class="text-xl sm:text-2xl font-playfair text-lptxcolor"
+                        >
+                            Our Goal
+                        </h2>
+                        <p
+                            class="text-lptxcolorlight text-sm sm:text-base leading-relaxed"
+                        >
+                            Our ultimate goal is to create a future where
+                            sustainable living is the norm. We’re here to make
+                            eco-conscious choices not just achievable but also
+                            desirable and impactful. We aim to be a trusted name
+                            in the eco-conscious movement, offering solutions
+                            that align with your values while meeting your
+                            everyday needs.
+                        </p>
+                        <p
+                            class="text-lptxcolorlight text-sm sm:text-base leading-relaxed"
+                        >
+                            Education is key to achieving this goal. We strive
+                            to inspire our customers with the knowledge and
+                            resources they need to make informed decisions,
+                            fostering a community of sustainability advocates
+                            who lead by example.
+                        </p>
+                    </div>
 
-                    <h2
-                        class="text-2xl sm:text-3xl font-playfair text-lptxcolor mb-4"
-                    >
-                        Our Promise
-                    </h2>
-                    <p class="text-lptxcolorlight text-base sm:text-lg">
-                        At artenotes, we promise to always offer products
-                        that are made with the environment in mind. From
-                        sourcing raw materials responsibly to ensuring our
-                        products are recyclable or biodegradable, we are
-                        dedicated to sustainability in every aspect of our
-                        business. We work with suppliers who share our
-                        commitment to ethical practices and environmental
-                        responsibility, and we are constantly looking for new
-                        ways to minimize our impact.
-                    </p>
+                    <!-- Why We Care -->
+                    <div class="space-y-4">
+                        <h2
+                            class="text-xl sm:text-2xl font-playfair text-lptxcolor"
+                        >
+                            Why We Care
+                        </h2>
+                        <p
+                            class="text-lptxcolorlight text-sm sm:text-base leading-relaxed"
+                        >
+                            We see the impact of human activity on our planet
+                            every day — from polluted oceans to deforestation
+                            and the growing problem of waste. These challenges
+                            motivate us to take responsibility for our actions
+                            and inspire others to do the same.
+                        </p>
+                        <p
+                            class="text-lptxcolorlight text-sm sm:text-base leading-relaxed"
+                        >
+                            Our passion lies in creating products that solve
+                            problems without adding to them. By championing
+                            sustainable practices, we’re not just reducing our
+                            own environmental footprint; we’re empowering you to
+                            make a difference. Together, we can ensure that
+                            future generations inherit a cleaner, healthier
+                            planet.
+                        </p>
+                    </div>
 
-                    <h2
-                        class="text-2xl sm:text-3xl font-playfair text-lptxcolor mb-4"
-                    >
-                        Join Us on Our Journey
-                    </h2>
-                    <p class="text-lptxcolorlight text-base sm:text-lg">
-                        We invite you to join us on this journey towards a more
-                        sustainable future. By choosing eco-friendly products,
-                        you are making a conscious decision to protect the
-                        planet and promote the well-being of future generations.
-                        Every small change you make adds up, and together, we
-                        can create a positive impact. Thank you for supporting
-                        our vision of a cleaner, greener world. We couldn’t do
-                        it without you.
-                    </p>
+                    <!-- Join Us Section -->
+                    <div class="text-center">
+                        <h2
+                            class="text-xl sm:text-2xl font-playfair text-lptxcolor mb-4"
+                        >
+                            Join Us on Our Journey
+                        </h2>
+                        <p
+                            class="text-lptxcolorlight text-sm sm:text-base leading-relaxed"
+                        >
+                            Be a part of the solution. By supporting artenotes,
+                            you’re not only choosing eco-friendly products but
+                            also joining a community dedicated to positive
+                            environmental change. Together, every small step we
+                            take becomes a leap toward a sustainable future.
+                        </p>
+                        <button
+                            class="mt-6 bg-fmbtcolor text-bglightcolor py-2 px-6 rounded-full text-base sm:text-lg font-medium shadow-md hover:bg-lptxcolorsemilight transition duration-300"
+                        >
+                            Learn More
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>
@@ -124,5 +154,22 @@ const user = authStore();
 </template>
 
 <style scoped>
-/* Add any additional styling if needed */
+/* Enhance typography and spacing for mobile-first design */
+h1,
+h2 {
+    letter-spacing: 0.05em;
+}
+
+hr {
+    margin: 2rem 0;
+}
+
+button {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
 </style>

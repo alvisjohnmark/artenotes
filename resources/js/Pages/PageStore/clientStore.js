@@ -325,7 +325,6 @@ export const clientStore = defineStore("clientStore", {
                     }
                 );
 
-                // const orderId = orderResponse.data.order_id;
                 for (const item of orderDetails.items) {
                     await axios.put(
                         `/api/client/saveOrderItems`,

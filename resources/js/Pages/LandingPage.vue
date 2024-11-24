@@ -114,7 +114,7 @@ onMounted(() => {
                         class="bg-[#F1EBE1] p-6 rounded-lg shadow-md text-center"
                     >
                         <img
-                            src="/public/img/hero3.png"
+                            src="/public/img/wallet.jpg"
                             alt="Leather Long Wallet"
                             class="w-full h-48 object-cover rounded-md mb-4"
                         />
@@ -128,21 +128,21 @@ onMounted(() => {
                         class="bg-[#F1EBE1] p-6 rounded-lg shadow-md text-center"
                     >
                         <img
-                            src="/public/img/hero3.png"
+                            src="/public/img/pencil.jpg"
                             alt="Machined Pencil and Pen Set"
                             class="w-full h-48 object-cover rounded-md mb-4"
                         />
                         <h3 class="text-lg font-semibold text-[#333]">
                             Machined Pencil and Pen Set
                         </h3>
-                        <p class="text-sm text-lptxcolor">Black</p>
+                        <p class="text-sm text-lptxcolor">Multicolor</p>
                         <p class="text-lg font-bold mt-2">₱70</p>
                     </div>
                     <div
                         class="bg-[#F1EBE1] p-6 rounded-lg shadow-md text-center"
                     >
                         <img
-                            src="/public/img/hero3.png"
+                            src="/public/img/sketchbook.jpg"
                             alt="Mini-Sketchbooks"
                             class="w-full h-48 object-cover rounded-md mb-4"
                         />
@@ -156,7 +156,7 @@ onMounted(() => {
                         class="bg-[#F1EBE1] p-6 rounded-lg shadow-md text-center"
                     >
                         <img
-                            src="/public/img/hero3.png"
+                            src="/public/img/organizer.jpg"
                             alt="Organizer Set"
                             class="w-full h-48 object-cover rounded-md mb-4"
                         />
