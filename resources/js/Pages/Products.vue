@@ -87,11 +87,6 @@ onMounted(() => {
                                     product.price,
                                     product.stock
                                 );
-                                if (window.gtag) {
-                                    window.gtag('event', 'checkout', {
-                                        value: 1,
-                                    });
-                                }
                             "
                         >
                             Add to Cart

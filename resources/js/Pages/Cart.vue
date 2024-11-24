@@ -326,11 +326,6 @@ onMounted(() => {
                     <button
                         @click="
                             render.checkAddress();
-                            if (window.gtag) {
-                                window.gtag('event', 'checkout', {
-                                    value: 1,
-                                });
-                            }
                         "
                         class="mt-4 w-full bg-lptxcolor text-white py-2 rounded-lg font-semibold"
                     >
