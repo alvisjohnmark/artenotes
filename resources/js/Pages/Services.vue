@@ -19,11 +19,11 @@ onMounted(() => {
         <main
             class="container mx-auto px-4 py-8 flex justify-center items-center"
         >
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="flex flex-wrap justify-center items-center gap-8">
                 <div
                     v-for="service in render.service_list"
                     :key="service.id"
-                    class="bg-[#f4f0eb] rounded-xl shadow-sm transition-transform transform w-full overflow-hidden border border-[#d1c5b8]"
+                    class="bg-[#f4f0eb] rounded-xl shadow-sm transition-transform transform overflow-hidden border border-[#d1c5b8] max-w-xs"
                 >
                     <div class="p-4">
                         <h2
@@ -42,24 +42,28 @@ onMounted(() => {
                         class="p-4 border-t border-gray-200 flex gap-2 bg-[#e8e0d5]"
                     >
                         <button
-                            class="bg-lptxcolor text-lptxcolor w-full text-white py-2 rounded-lg font-semibold text-sm uppercase"
+                            class="bg-lptxcolor text-white w-full py-2 rounded-lg font-semibold text-sm uppercase"
                             @click="render.setSelectedService(service)"
                         >
                             Avail
                         </button>
                     </div>
                 </div>
+
+                <!-- Modal -->
                 <div
                     v-if="render.showRecipientAddress"
-                    class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center"
+                    class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center overflow-y-auto"
                 >
                     <div
-                        class="bg-[#d9e2c7] rounded-lg shadow-lg p-8 w-full max-w-3xl mx-auto"
+                        class="bg-[#d9e2c7] rounded-lg shadow-lg p-4 sm:p-8 w-full max-w-sm sm:max-w-xl lg:max-w-3xl mx-auto mt-16"
                     >
-                        <div class="flex flex-col md:flex-row gap-8">
-                            <div class="flex-1">
+                        <div
+                            class="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-8"
+                        >
+                            <div class="flex-1 w-full">
                                 <h2
-                                    class="text-xl font-bold mb-2 text-gray-800"
+                                    class="text-lg sm:text-xl font-bold mb-2 text-gray-800"
                                 >
                                     Your message:
                                 </h2>
@@ -68,12 +72,12 @@ onMounted(() => {
                                 </p>
                                 <textarea
                                     v-model="render.recipientDetails.message"
-                                    rows="18"
+                                    rows="6"
                                     class="w-full p-2 mb-4 border rounded-lg bg-white"
                                 ></textarea>
                             </div>
 
-                            <div class="flex-1 space-y-4">
+                            <div class="flex-1 w-full space-y-4">
                                 <div>
                                     <label class="block font-bold mb-1"
                                         >Font:</label
@@ -94,7 +98,6 @@ onMounted(() => {
                                                 .envelope_color
                                         "
                                         class="w-full p-2 border rounded bg-white"
-                                        placeholder="Color"
                                     >
                                         <option value="beige">Beige</option>
                                         <option value="brown">Brown</option>
@@ -174,7 +177,7 @@ onMounted(() => {
                             </div>
                         </div>
 
-                        <div class="flex justify-end gap-4 mt-8">
+                        <div class="flex justify-end gap-4 mt-4 sm:mt-8">
                             <button
                                 class="bg-lptxcolor text-white px-4 py-2 rounded-md hover:bg-opacity-90"
                                 @click="
@@ -191,13 +194,13 @@ onMounted(() => {
 
                             <button
                                 @click="render.toggleRecipientAddress"
-                                class="bg-blue-600 text-white px-4 py-2 rounded-md over:bg-opacity-90"
+                                class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-opacity-90"
                             >
                                 Checkout
                             </button>
                             <button
                                 @click="render.toggleRecipientAddress"
-                                class="bg-red-600 text-white px-4 py-2 rounded-md over:bg-opacity-90"
+                                class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-opacity-90"
                             >
                                 Cancel
                             </button>
@@ -206,8 +209,8 @@ onMounted(() => {
                 </div>
             </div>
         </main>
+        <Footer />
     </section>
-    <Footer />
 </template>
 
 <style scoped></style>

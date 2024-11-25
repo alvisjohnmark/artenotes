@@ -65,7 +65,7 @@ class cartController extends Controller
             }
     
             $recipientDetail = RecipientDetail::create([
-                'client_id' =>$recipient->id,
+                'client_id' => $recipient->id,
                 'font' => $recipientDetails['font'] ?? null,
                 'has_rose' => $hasRose,
                 'envelope_color' => $recipientDetails['envelope_color'] ?? null,
@@ -78,18 +78,24 @@ class cartController extends Controller
             ]);
     
             $recipientDetailsId = $recipientDetail->id;
-        } 
+        }
     
         if ($cartItem) {
-            $cartItem->update([
+            $updateData = [
                 'quantity' => $quantity,
                 'total_price' => $totalPrice,
-                'recipient_detail_id' => $recipientDetailsId,
-            ]);
+            ];
+    
+            // Only update recipient_detail_id if the item type is service
+            if ($itemType === 'service') {
+                $updateData['recipient_detail_id'] = $recipientDetailsId;
+            }
+    
+            $cartItem->update($updateData);
         } else {
             CartItems::create([
                 'cart_id' => $cart->id,
-                'recipient_detail_id' => $recipient->id,
+                'recipient_detail_id' => $itemType === 'service' ? $recipientDetailsId : $recipient->id,
                 'item_id' => $itemId,
                 'item_type' => $itemType,
                 'quantity' => $quantity,
@@ -100,6 +106,7 @@ class cartController extends Controller
     
         return response()->json(['message' => ucfirst($itemType) . ' added to cart successfully.']);
     }
+    
     public function getCartItems()
     {
         $clientId = Auth::id();

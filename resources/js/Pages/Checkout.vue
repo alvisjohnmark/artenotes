@@ -143,11 +143,10 @@ const handlePayment = async () => {
                     <p>{{ render.client_details.street }}</p>
                     <p>
                         {{ render.client_details.province }}
-                        {{ render.client_details.country }}
+                        {{ render.client_details.city_municipality }}
                     </p>
                     <p>
                         {{ render.client_details.zipcode }}
-                        {{ render.client_details.country }}
                     </p>
                 </div>
             </div>

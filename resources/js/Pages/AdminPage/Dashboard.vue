@@ -111,8 +111,8 @@ onMounted(() => {
                             class="text-fmbtcolor"
                         />
                     </div>
-                    <h3 class="text-2xl font-bold">₱53k</h3>
-                    <p class="text-lptxcolorlight">+55% than last week</p>
+                    <h3 class="text-2xl font-bold">₱-</h3>
+                    <p class="text-lptxcolorlight">+-% than last week</p>
                 </div>
 
                 <div class="bg-white p-4 rounded-lg shadow text-lptxcolor">
@@ -124,8 +124,8 @@ onMounted(() => {
                             class="text-fmbtcolor"
                         />
                     </div>
-                    <h3 class="text-2xl font-bold">2,300</h3>
-                    <p class="text-lptxcolorlight">+3% than last month</p>
+                    <h3 class="text-2xl font-bold">-</h3>
+                    <p class="text-lptxcolorlight">+-% than last month</p>
                 </div>
 
                 <div class="bg-white p-4 rounded-lg shadow text-lptxcolor">
@@ -137,8 +137,8 @@ onMounted(() => {
                             class="text-fmbtcolor"
                         />
                     </div>
-                    <h3 class="text-2xl font-bold">3,462</h3>
-                    <p class="text-red-500">-2% than yesterday</p>
+                    <h3 class="text-2xl font-bold">-</h3>
+                    <p class="text-red-500">--% than yesterday</p>
                 </div>
 
                 <div class="bg-white p-4 rounded-lg shadow text-lptxcolor">
@@ -150,8 +150,8 @@ onMounted(() => {
                             class="text-fmbtcolor"
                         />
                     </div>
-                    <h3 class="text-2xl font-bold">₱103,430</h3>
-                    <p class="text-lptxcolorlight">+5% than yesterday</p>
+                    <h3 class="text-2xl font-bold">₱-</h3>
+                    <p class="text-lptxcolorlight">+-% than yesterday</p>
                 </div>
             </div>
 
@@ -169,13 +169,20 @@ onMounted(() => {
                     <h2 class="text-lg font-semibold mb-2 text-lptxcolor">
                         Daily Sales
                     </h2>
-                    <p class="text-gray-500">15% increase in today sales</p>
+                    <p class="text-gray-500">-% increase in today sales</p>
                     <div class="h-32 bg-gray-200 mt-4 rounded"></div>
                 </div>
 
                 <div class="bg-white p-4 rounded-lg shadow">
                     <h2 class="text-lg font-semibold mb-2 text-lptxcolor">
                         Completed Tasks
+                    </h2>
+                    <p class="text-gray-500">Last Campaign Performance</p>
+                    <div class="h-32 bg-gray-200 mt-4 rounded"></div>
+                </div>
+                 <div class="bg-white p-4 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-2 text-lptxcolor">
+                        Ongoing Tasks
                     </h2>
                     <p class="text-gray-500">Last Campaign Performance</p>
                     <div class="h-32 bg-gray-200 mt-4 rounded"></div>

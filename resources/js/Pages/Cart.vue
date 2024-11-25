@@ -216,18 +216,18 @@ onMounted(() => {
                     <hr />
 
                     <div
-                        v-if="render.cart_list.length <= 0"
+                        v-if="render.serviceItems.length <= 0"
                         class="flex flex-col items-center justify-center p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-md"
                     >
                         <ShoppingBasket :size="32" :stroke-width="1" />
                         <p class="text-lg font-medium text-gray-600 mb-2">
-                            Your cart is empty
+                            Your service cart is empty
                         </p>
                         <p class="text-gray-500 mb-4">
                             It looks like you haven't added anything yet.
                         </p>
                         <router-link
-                            to="/products"
+                            to="/services"
                             class="mt-4 p-4 bg-lptxcolor text-white py-2 rounded-lg font-semibold"
                             >Continue Shopping</router-link
                         >
@@ -256,11 +256,6 @@ onMounted(() => {
 
                             <div class="text-center">
                                 {{ item.service.service_description }}
-                                <!-- {{
-                                    item.recipient_detail.has_rose
-                                        ? "Yes"
-                                        : "No"
-                                }} -->
                             </div>
 
                             <div class="text-center">

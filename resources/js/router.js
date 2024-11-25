@@ -6,6 +6,7 @@ import About from "./Pages/About.vue";
 import Products from "./Pages/Products.vue";
 import Services from "./Pages/Services.vue";
 import Register from "./Pages/Auth/Register.vue";
+import Profile from "./Pages/Profile.vue";
 import Login from "./Pages/Auth/Login.vue";
 import Cart from "./Pages/Cart.vue";
 import Checkout from "./Pages/Checkout.vue";
@@ -54,6 +55,11 @@ export const routes = [
         path: "/:pathMatch(.*)*",
         component: NotFound,
         name: "NotFound",
+    },
+    {
+        path: "/profile",
+        component: Profile,
+        name: "Profile",
     },
     {
         path: "/cart",
