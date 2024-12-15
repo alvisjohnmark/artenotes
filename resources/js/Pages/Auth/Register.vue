@@ -33,6 +33,7 @@ const user = authStore();
                         Register Account
                     </h2>
                     <form
+                        id="register-form"
                         @submit.prevent="user.registerUser()"
                         class="space-y-4"
                     >

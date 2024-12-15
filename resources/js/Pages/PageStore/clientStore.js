@@ -26,12 +26,13 @@ export const clientStore = defineStore("clientStore", {
             recipient_name: "",
         },
         address: {
-            street: "",
+            barangay: "",
             city_municipality: "",
             province: "",
             zipcode: "",
         },
         selectedService: null,
+        orderStatus: null, // To store the current order status
 
         token: localStorage.getItem("token") || null,
     }),
@@ -111,7 +112,6 @@ export const clientStore = defineStore("clientStore", {
             }
         },
 
-
         async fetchCartItems() {
             try {
                 const response = await axios.get(`/api/client/getCartItems`, {
@@ -134,6 +134,8 @@ export const clientStore = defineStore("clientStore", {
                         ...item,
                         checked: false,
                     }));
+                console.log(this.cart_list);
+                
             } catch (error) {
                 console.error("Error fetching carts:", error);
             }
@@ -265,7 +267,7 @@ export const clientStore = defineStore("clientStore", {
             }
 
             if (
-                !this.address.street ||
+                !this.address.barangay ||
                 !this.address.city_municipality ||
                 !this.address.province ||
                 !this.address.zipcode
@@ -292,11 +294,6 @@ export const clientStore = defineStore("clientStore", {
                 console.log(this.address);
                 this.showAddressModal = false;
 
-                Swal.fire(
-                    "Address Saved",
-                    "Your address has been saved successfully.",
-                    "success"
-                );
                 await this.createOrder();
             } catch (error) {
                 console.error("Error saving address:", error);
@@ -329,7 +326,6 @@ export const clientStore = defineStore("clientStore", {
                     await axios.put(
                         `/api/client/saveOrderItems`,
                         {
-                            // order_id: orderId,
                             item_id: item.id,
                             quantity: item.quantity,
                             total_price: item.total,
@@ -415,7 +411,6 @@ export const clientStore = defineStore("clientStore", {
             }
         },
 
-        
         async updateCheckedStatus(item) {
             const { id: itemId, checked } = item; // Extract id and checked from item
             try {
@@ -436,6 +431,37 @@ export const clientStore = defineStore("clientStore", {
                 }
             } catch (error) {
                 console.error("Error updating checked status:", error);
+            }
+        },
+        async updateOrderStatus(orderId) {
+            try {
+                const response = await axios.put(
+                    `/api/orderStatus/${orderId}`,
+                    {
+                        status: 1,
+                    }
+                );
+                this.orderStatus = response.data.status;
+
+                // Show success notification and redirect
+                await Swal.fire("Success", "Payment Successful!", "success");
+                this.router.push("thankyou");
+
+                return response.data;
+            } catch (error) {
+                console.error(
+                    "Error updating order status:",
+                    error.response?.data || error.message
+                );
+
+                // Show error notification
+                Swal.fire(
+                    "Error",
+                    "Failed to update order status for Cash On Delivery.",
+                    "error"
+                );
+
+                throw error;
             }
         },
     },

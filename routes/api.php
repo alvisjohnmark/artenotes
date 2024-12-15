@@ -12,9 +12,9 @@ use App\Http\Controllers\PaymentController;
 Route::get('/getProducts', [appController::class, 'getProducts']);
 Route::get('/getServices', [appController::class, 'getServices']);
 Route::post('/payment-intent', [PaymentController::class, 'createPaymentIntent']);
-Route::post('/confirm-payment', [PaymentController::class, 'confirmPayment']);
+Route::post('/confirm-payment/{id}', [PaymentController::class, 'confirmPayment']);
 Route::post('/update-order-status', [PaymentController::class, 'updateOrderStatus']);
-
+Route::put('orderStatus/{id}', [PaymentController::class, 'updateOrderStatus']);
 
 // Admin routes
 Route::prefix('admin')->group(function () {
@@ -51,6 +51,7 @@ Route::prefix('client')->group(function () {
         Route::put('updateChecked/{id}', [cartController::class, 'updateChecked']);
         Route::get('getOrderItems', [cartController::class, 'getOrderItems']);
         Route::delete('removeFromOrder/{id}', [cartController::class, 'removeFromOrder']);
+        
     });
 });
 

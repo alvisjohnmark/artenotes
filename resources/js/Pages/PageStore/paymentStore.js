@@ -30,7 +30,7 @@ export const paymentStore = defineStore("paymentStore", {
                     },
                 });
                 this.order_list = response.data;
-                console.log("Order List:", this.order_list);
+                console.log("Order List:", this.order_list.order_items[0].order_id);
             } catch (error) {
                 console.error("Error fetching orders:", error);
                 Swal.fire("Error", "Unable to fetch order items", "error");
@@ -113,9 +113,9 @@ export const paymentStore = defineStore("paymentStore", {
             }
         },
 
-        async confirmPayment() {
+        async confirmPayment(orderID) {
             try {
-                const response = await axios.post('/api/confirm-payment', {
+                const response = await axios.post(`/api/confirm-payment/${orderID}`, {
                     payment_intent_id: this.paymentIntent.id,
                     client_key: this.paymentIntent.attributes.client_key,
                 });
@@ -136,23 +136,6 @@ export const paymentStore = defineStore("paymentStore", {
             }
         },
         
-        async updateOrderStatusToCOD() {
-            try {
-                const response = await axios.post("/api/update-order-status", {
-                    order_id: this.order_list.id,
-                    status: 2, 
-                });
-                console.log(response.data.message);
-                Swal.fire(
-                    "Success",
-                    "Order status updated to Cash On Delivery.",
-                    "success"
-                );
-            } catch (error) {
-                console.error("Error updating order status:", error);
-                Swal.fire("Error", "Unable to update order status", "error");
-            }
-        },
     },
     getters: {},
 });

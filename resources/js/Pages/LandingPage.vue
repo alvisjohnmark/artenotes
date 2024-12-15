@@ -287,7 +287,7 @@ onMounted(() => {
                     />
                     <div class="p-6">
                         <h3 class="text-xl font-playfair text-[#5a5a3a] mb-2">
-                            Custom Stationery Set
+                            Stationery Set
                         </h3>
                         <router-link
                             to="/products"
@@ -327,7 +327,7 @@ onMounted(() => {
                     />
                     <div class="p-6">
                         <h3 class="text-xl font-playfair text-[#5a5a3a] mb-2">
-                            Custom Gift Wrapping
+                            Gift Wrappers
                         </h3>
                         <router-link
                             to="/products"

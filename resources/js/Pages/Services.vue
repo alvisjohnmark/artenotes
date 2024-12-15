@@ -53,7 +53,7 @@ onMounted(() => {
                 <!-- Modal -->
                 <div
                     v-if="render.showRecipientAddress"
-                    class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center overflow-y-auto"
+                    class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center overflow-y-auto mv-20"
                 >
                     <div
                         class="bg-[#d9e2c7] rounded-lg shadow-lg p-4 sm:p-8 w-full max-w-sm sm:max-w-xl lg:max-w-3xl mx-auto mt-16"
@@ -194,12 +194,6 @@ onMounted(() => {
 
                             <button
                                 @click="render.toggleRecipientAddress"
-                                class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-opacity-90"
-                            >
-                                Checkout
-                            </button>
-                            <button
-                                @click="render.toggleRecipientAddress"
                                 class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-opacity-90"
                             >
                                 Cancel
@@ -209,8 +203,8 @@ onMounted(() => {
                 </div>
             </div>
         </main>
-        <Footer />
     </section>
+    <Footer />
 </template>
 
 <style scoped></style>

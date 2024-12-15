@@ -52,9 +52,6 @@ function toggleMenu() {
                         v-if="user.showDropdown"
                         class="absolute right-0 mt-12 py-2 w-48 bg-white rounded-md shadow-lg"
                     >
-                        <router-link to="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
-                            <User :size="24" :stroke-width="1" class="inline-block mr-2" />Profile
-                        </router-link>
                         <span class="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer" @click="user.logoutUser()">
                             <LogOut :stroke-width="1" class="inline-block mr-2" />Logout
                         </span>

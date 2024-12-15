@@ -75,7 +75,7 @@ class clientController extends Controller
             return response()->json(['message' => 'client not found'], 404);
         }
     
-        $client->street = $request->street;
+        $client->barangay = $request->barangay;
         $client->{"city/municipality"} = $request->city_municipality; 
         $client->province = $request->province;
         $client->zipcode = $request->zipcode;

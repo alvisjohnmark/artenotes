@@ -61,18 +61,6 @@ const route = useRoute();
                         v-if="user.showDropdown"
                         class="absolute right-0 mt-12 py-2 w-48 bg-white rounded-md shadow-lg"
                     >
-                        <!-- Profile Link -->
-                        <router-link
-                            to="/profile"
-                            class="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                            @click="user.showDropdown = false"
-                        >
-                            <User
-                                :size="24"
-                                :stroke-width="1"
-                                class="inline-block mr-2"
-                            />Profile
-                        </router-link>
 
                         <!-- Logout Action -->
                         <span

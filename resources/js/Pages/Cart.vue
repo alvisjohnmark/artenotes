@@ -4,9 +4,22 @@ import { Trash2, ShoppingBasket, View } from "lucide-vue-next";
 import SemiNav from "../components/seminav.vue";
 import Footer from "../components/footer.vue";
 import { onMounted } from "vue";
+import { ref, computed } from "vue";
 
 const render = clientStore();
+const buttonText = computed(() => (render.showTable ? 'Services' : 'Products'));
 
+
+const toggleTable = () => {
+    render.toggleTable();
+};
+
+const productsInCart = computed(() =>
+  render.cart_list.filter(item => item.item_type === 'product')
+);
+const servicesInCart = computed(() =>
+  render.cart_list.filter(item => item.item_type === 'product')
+);
 onMounted(() => {
     render.fetchCartItems();
     render.fetchClientDetails();
@@ -32,7 +45,7 @@ onMounted(() => {
                 @click="render.toggleTable"
                 class="m-4 p-4 bg-lptxcolor text-white py-2 rounded-lg font-semibold"
             >
-                Services
+                {{ buttonText }}
             </button>
             <div
                 v-if="render.showTable"
@@ -51,7 +64,7 @@ onMounted(() => {
 
                     <div class="space-y-4 mt-4">
                         <div
-                            v-if="render.cart_list.length <= 0"
+                            v-if="render.productItems.length <= 0"
                             class="flex flex-col items-center justify-center p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-md"
                         >
                             <ShoppingBasket :size="32" :stroke-width="1" />
@@ -191,6 +204,7 @@ onMounted(() => {
                         </li>
                     </ul>
                     <button
+                        id="checkout-button"
                         @click="render.checkAddress()"
                         class="mt-4 w-full bg-lptxcolor text-white py-2 rounded-lg font-semibold"
                     >
@@ -319,9 +333,8 @@ onMounted(() => {
                         </li>
                     </ul>
                     <button
-                        @click="
-                            render.checkAddress();
-                        "
+                        id="checkout-button"
+                        @click="render.checkAddress()"
                         class="mt-4 w-full bg-lptxcolor text-white py-2 rounded-lg font-semibold"
                     >
                         PROCEED TO CHECKOUT
@@ -338,10 +351,10 @@ onMounted(() => {
 
                 <form @submit.prevent="render.saveAddress()">
                     <div class="mb-4">
-                        <label class="block font-medium">Street</label>
+                        <label class="block font-medium">Barangay</label>
                         <input
                             type="text"
-                            v-model="render.address.street"
+                            v-model="render.address.barangay"
                             class="w-full p-2 border rounded-md"
                             required
                         />

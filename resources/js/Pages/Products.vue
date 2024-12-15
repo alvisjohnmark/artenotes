@@ -79,6 +79,7 @@ onMounted(() => {
                     >
                         <button
                             class="bg-fmbtcolor text-white w-full py-2 rounded-lg font-semibold text-sm uppercase hover:bg-opacity-90 transition-all"
+                            id="add_to_cart-button"
                             @click="
                                 render.addToCart(
                                     product.id,
@@ -86,17 +87,11 @@ onMounted(() => {
                                     product.quantity,
                                     product.price,
                                     product.stock
-                                );
+                                )
                             "
                         >
                             Add to Cart
                         </button>
-                        <!-- <button
-                            class="border border-lptxcolor text-lptxcolor w-full py-2 rounded-lg font-semibold text-sm uppercase hover:bg-lptxcolor hover:text-white transition-all"
-                            @click="render.checkAddress"
-                        >
-                            Buy now
-                        </button> -->
                     </div>
                 </div>
             </div>

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Order;
+use App\Models\OrderItems;
+use App\Models\CartItems;
 
 class PaymentController extends Controller
 {
@@ -33,7 +35,7 @@ class PaymentController extends Controller
     return response()->json($responseBody['data']);
 }
 
-    public function confirmPayment(Request $request)
+    public function confirmPayment(Request $request,$orderID)
     {
         $client = new Client();
         $paymentMethodUrl = 'https://api.paymongo.com/v1/payment_methods';
@@ -68,15 +70,18 @@ class PaymentController extends Controller
         // Get the response data and extract the redirect URL
         $confirmData = json_decode($confirmResponse->getBody(), true);
 
-        // $clientId = Auth::id();
-        // if (!$clientId) {
-        //     return response()->json(['message' => 'Please log in to checkout items to your cart.'], 403);
-        // }
+        $order = Order::find($orderID);
+        $order->status = 1;
+        $order->save();
 
-        // OrderItems::whereHas('cart', function ($query) use ($clientId) {
-        // $query->where('order_id', $clientId);
-        // })->where('checked', true)->delete();
-
+        CartItems::where('cart_id', $orderID)
+            ->where('checked', 1)
+            ->delete();
+        
+        OrderItems::where('order_id', $orderID)
+            ->delete();
+   
+            
         return response()->json([
             'redirect_url' => $confirmData['data']['attributes']['next_action']['redirect']['url'] 
         ]);
@@ -84,25 +89,25 @@ class PaymentController extends Controller
         
     }
 
-    public function updateOrderStatus(Request $request)
+    public function updateOrderStatus($orderId)
     {
-        // Validate the incoming request (optional)
-        $request->validate([
-            'order_id' => 'required|integer',
-            'status' => 'required|integer', // 1 for COD status
-        ]);
-
         try {
-            // Find the order by ID
-            $order = Order::findOrFail($request->order_id);
-
-            // Update the order status
-            $order->status = $request->status;
+            $order = Order::find($orderId);
+            $order->status = 1;
             $order->save();
+    
+            CartItems::where('cart_id', $orderId)
+                ->where('checked', 1)
+                ->delete();
+            
+            OrderItems::where('order_id', $orderId)
+                ->delete();
+    
 
             return response()->json(['message' => 'Order status updated successfully'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to update order status'], 500);
+            return response()->json(['message' => 'Failed to update order status', 'error' => $e->getMessage()], 500);
         }
     }
+    
 }
